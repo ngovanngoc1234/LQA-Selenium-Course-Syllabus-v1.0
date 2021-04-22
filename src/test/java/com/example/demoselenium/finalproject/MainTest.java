@@ -95,10 +95,6 @@ public class MainTest extends BaseTest {
         Search search = new Search(webDriver);
         search.suggestionsSearch();
         extentTest = extentReport.createTest("searchClear");
-        Thread.sleep(5000);
-        extentTest.info("No results were found for your search \"eaw\"");
-        Thread.sleep(5000);
-        extentTest.info("You must agree to the terms of service before continuing.");
         extentTest.pass("pass");
         extentReport.flush();
     }

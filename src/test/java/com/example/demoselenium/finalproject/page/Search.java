@@ -19,6 +19,10 @@ public class Search extends IsElementPresent {
 
 
     public void suggestionsSearch() throws InterruptedException {
+        inputSearch("aew");
+        webDriver.findElement(SUBMIT).click();
+        Thread.sleep(3000);
+        webDriver.findElement(INPUT_SEARCH).clear();
         inputSearch("dress");
         Thread.sleep(5000);
         List<WebElement> list = webDriver.findElements(By.xpath("//div[@class=\"ac_results\"]//li"));
