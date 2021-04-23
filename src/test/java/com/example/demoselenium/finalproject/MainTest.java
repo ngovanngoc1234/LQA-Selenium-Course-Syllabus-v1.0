@@ -135,35 +135,35 @@ public class MainTest extends BaseTest {
     }
 
 
-    @Test
-    public void testPro12() throws InterruptedException {
-        webDriver.findElement(By.xpath("//*[@id=\"homefeatured\"]/li[3]/div/div[1]/div/a[1]/img")).click();
-        Thread.sleep(2000);
-        webDriver.findElement(By.xpath("//*[@id=\"center_column\"]/div/div/div[3]/p[7]/button[1]")).click();
-        String parent = webDriver.getWindowHandle();
-        System.out.println(parent);
-        Thread.sleep(3000);
-        Set<String> handles = webDriver.getWindowHandles();
-        String twitter = "";
-        for (String h : handles) {
-            if (!h.equals(parent)) {
-                twitter = h;
-                System.out.println(h);
-            }
-
-        }
-        try {
-            webDriver.switchTo().window(twitter);
-            System.out.println("Title popup = " + webDriver.getTitle());
-            Thread.sleep(3000);
-            webDriver.findElement(By.xpath("//input[@name='session[username_or_email]']")).sendKeys("ngoc");
-
-        } catch (NoSuchWindowException e) {
-            System.out.println("no the switch");
-
-            Thread.sleep(5000);
-        }
-    }
+//    @Test
+//    public void testPro12() throws InterruptedException {
+//        webDriver.findElement(By.xpath("//*[@id=\"homefeatured\"]/li[3]/div/div[1]/div/a[1]/img")).click();
+//        Thread.sleep(2000);
+//        webDriver.findElement(By.xpath("//*[@id=\"center_column\"]/div/div/div[3]/p[7]/button[1]")).click();
+//        String parent = webDriver.getWindowHandle();
+//        System.out.println(parent);
+//        Thread.sleep(3000);
+//        Set<String> handles = webDriver.getWindowHandles();
+//        String twitter = "";
+//        for (String h : handles) {
+//            if (!h.equals(parent)) {
+//                twitter = h;
+//                System.out.println(h);
+//            }
+//
+//        }
+//        try {
+//            webDriver.switchTo().window(twitter);
+//            System.out.println("Title popup = " + webDriver.getTitle());
+//            Thread.sleep(3000);
+//            webDriver.findElement(By.xpath("//input[@name='session[username_or_email]']")).sendKeys("ngoc");
+//
+//        } catch (NoSuchWindowException e) {
+//            System.out.println("no the switch");
+//
+//            Thread.sleep(5000);
+//        }
+//    }
 
 //
 //    @Test
