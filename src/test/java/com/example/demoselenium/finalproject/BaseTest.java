@@ -7,16 +7,11 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
 
 public class BaseTest {
-    protected WebDriver driver;
     public static ExtentReports extentReport;
     public ExtentTest extentTest;
 
     @BeforeSuite
-    //@Parameters({"paraName"})
-    public void beforeSuite(
-            //String paraName
-    ) {
-//		System.out.println(paraName);
+    public void beforeSuite() {
         extentReport = new ExtentReports();
         extentReport.attachReporter(ReportUtil.getExtentHtmlReporter());
         extentReport.setSystemInfo("OS", System.getProperty("os.name"));
