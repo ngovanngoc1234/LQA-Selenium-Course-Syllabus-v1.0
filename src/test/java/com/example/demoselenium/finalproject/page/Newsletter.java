@@ -1,9 +1,10 @@
 package com.example.demoselenium.finalproject.page;
 
+import com.example.demoselenium.finalproject.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class Newsletter extends IsElementPresent{
+public class Newsletter extends BaseTest {
 
     public By INPUT_NEWSLETTER = By.xpath("//*[@id=\"newsletter-input\"]");
     public By BUTTON = By.xpath("//*[@id=\"newsletter_block_left\"]/div/form/div/button");
@@ -13,7 +14,7 @@ public class Newsletter extends IsElementPresent{
     }
 
     public void submitNewsletterEmail(String email) {
-        webDriver.findElement(INPUT_NEWSLETTER).sendKeys(email);
-        webDriver.findElement(BUTTON).click();
+        sendKeyMethod(INPUT_NEWSLETTER,email);
+        clickMethod(BUTTON);
     }
 }

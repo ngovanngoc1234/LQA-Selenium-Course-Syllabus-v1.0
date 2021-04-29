@@ -1,11 +1,12 @@
 package com.example.demoselenium.finalproject.page;
 
+import com.example.demoselenium.finalproject.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-public class CreateAccount extends IsElementPresent {
+public class CreateAccount extends BaseTest {
     public By SEX = By.xpath("//*[@id=\"account-creation_form\"]/div[1]/div[1]/div[1]");
     public By FIRST_NAME = By.xpath("//*[@id=\"customer_firstname\"]");
     public By LAST_NAME = By.xpath("//*[@id=\"customer_lastname\"]");
@@ -35,25 +36,25 @@ public class CreateAccount extends IsElementPresent {
 
 
     public void addSex() {
-        webDriver.findElement(SEX).click();
+        clickMethod(SEX);
         WebElement element = webDriver.findElement(SEX);
         if (element.isSelected()) element.click();
     }
 
     public void addFirstName(String firstName) {
-        webDriver.findElement(FIRST_NAME).sendKeys(firstName);
+        sendKeyMethod(FIRST_NAME,firstName);
     }
 
     public void addLastName(String addLastName) {
-        webDriver.findElement(LAST_NAME).sendKeys(addLastName);
+        sendKeyMethod(LAST_NAME,addLastName);
     }
 
     public void addEmail(String addEmail) {
-        webDriver.findElement(EMAIL).sendKeys(addEmail);
+        sendKeyMethod(EMAIL,addEmail);
     }
 
     public void addPass(String addPass) {
-        webDriver.findElement(PASSWORD).sendKeys(addPass);
+        sendKeyMethod(PASSWORD,addPass);
     }
 
     public void addDay(int addDay) {
@@ -72,15 +73,15 @@ public class CreateAccount extends IsElementPresent {
     }
 
     public void addCompany(String addCompany) {
-        webDriver.findElement(COMPANY).sendKeys(addCompany);
+        sendKeyMethod(COMPANY,addCompany);
     }
 
     public void address(String address) {
-        webDriver.findElement(ADDRESS).sendKeys(address);
+        sendKeyMethod(ADDRESS,address);
     }
 
     public void addCty(String addCty) {
-        webDriver.findElement(CTY).sendKeys(addCty);
+        sendKeyMethod(CTY,addCty);
     }
 
     public void addState(int addState) {
@@ -89,7 +90,7 @@ public class CreateAccount extends IsElementPresent {
     }
 
     public void addZipCode(String addZipCode) {
-        webDriver.findElement(ZIP_POSTAL_CODE).sendKeys(addZipCode);
+        sendKeyMethod(ZIP_POSTAL_CODE,addZipCode);
     }
 
     public void addCounty(int addCounty) {
@@ -98,22 +99,22 @@ public class CreateAccount extends IsElementPresent {
     }
 
     public void addOther(String addOther) {
-        webDriver.findElement(OTHER).sendKeys(addOther);
+        sendKeyMethod(OTHER,addOther);
     }
 
     public void addHomePhone(String addHomePhone) {
-        webDriver.findElement(HOME_PHONE).sendKeys(addHomePhone);
+        sendKeyMethod(HOME_PHONE,addHomePhone);
     }
 
     public void addMobilePhone(String addMobilePhone) {
-        webDriver.findElement(MOBILE_PHONE).sendKeys(addMobilePhone);
+        sendKeyMethod(MOBILE_PHONE,addMobilePhone);
     }
 
     public void addAlias(String addAlias) {
-        webDriver.findElement(ALIAS).sendKeys(addAlias);
+        sendKeyMethod(ALIAS,addAlias);
     }
 
     public void addRegister(String addRegister) {
-        webDriver.findElement(REGISTER).sendKeys(addRegister);
+        sendKeyMethod(REGISTER,addRegister);
     }
 }

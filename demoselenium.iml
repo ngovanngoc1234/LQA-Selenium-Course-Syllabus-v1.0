@@ -105,5 +105,6 @@
     <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-utils:3.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.plexus:plexus-classworlds:2.6.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.maven.plugin-tools:maven-plugin-annotations:3.6.0" level="project" />
+    <orderEntry type="library" name="scala-sdk-2.13.5" level="project" />
   </component>
 </module>

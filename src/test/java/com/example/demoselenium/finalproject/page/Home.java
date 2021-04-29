@@ -1,9 +1,10 @@
 package com.example.demoselenium.finalproject.page;
 
+import com.example.demoselenium.finalproject.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class Home extends IsElementPresent{
+public class Home extends BaseTest {
     public By BTN_SIGN = By.linkText("Sign in");
 
     public void signIn() {

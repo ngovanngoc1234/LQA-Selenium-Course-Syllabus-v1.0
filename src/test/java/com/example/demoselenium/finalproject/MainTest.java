@@ -3,22 +3,21 @@ package com.example.demoselenium.finalproject;
 
 import com.example.demoselenium.finalproject.page.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.Set;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class MainTest extends BaseTest {
-
-    WebDriver webDriver;
-
+    WebDriverWait webDriverWait;
 
     @Test
     public void createAccount() throws InterruptedException {
@@ -26,10 +25,10 @@ public class MainTest extends BaseTest {
         home.signIn();
         CreateAccount createAccount = new CreateAccount(webDriver);
         IsCreateAccount isCreateAccount = new IsCreateAccount(webDriver);
-        isCreateAccount.createAccount("abc1231234@gmail.com");
-        Thread.sleep(5000);
+        isCreateAccount.createAccount("abc1231344544@gmail.com");
+        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         boolean flag;
-        if (isCreateAccount.isElementPresent(isCreateAccount.SUCCESSFULLY)) {
+        if (isCreateAccount.isElementPresent(isCreateAccount.SUCCESSFULLY, webDriver)) {
             System.out.println("tao thanh cong");
             flag = true;
         } else {
@@ -44,7 +43,7 @@ public class MainTest extends BaseTest {
         createAccount.addYears("1994");
         createAccount.addCompany("lqa");
         createAccount.address("thanh hoa");
-        Thread.sleep(5000);
+
         extentTest = extentReport.createTest("createAccount");
         extentTest.info("Welcome to your account. Here you can manage all of your personal information and orders.");
         if (flag) {
@@ -58,7 +57,7 @@ public class MainTest extends BaseTest {
     @Test
     public void newsletter() {
         Newsletter newsletter = new Newsletter(webDriver);
-        newsletter.submitNewsletterEmail("ngovanngoc20@yahoo.com");
+        newsletter.submitNewsletterEmail("ngovanngoc1122@yahoo.com");
         extentTest = extentReport.createTest("newsletter");
         extentTest.info(" You have successfully subscribed to this newsletter.");
         WebElement webElement = webDriver.findElement(By.xpath("//*[@id=\"columns\"]/p"));
@@ -136,79 +135,4 @@ public class MainTest extends BaseTest {
     }
 
 
-//    @Test
-//    public void testPro12() throws InterruptedException {
-//        webDriver.findElement(By.xpath("//*[@id=\"homefeatured\"]/li[3]/div/div[1]/div/a[1]/img")).click();
-//        Thread.sleep(2000);
-//        webDriver.findElement(By.xpath("//*[@id=\"center_column\"]/div/div/div[3]/p[7]/button[1]")).click();
-//        String parent = webDriver.getWindowHandle();
-//        System.out.println(parent);
-//        Thread.sleep(3000);
-//        Set<String> handles = webDriver.getWindowHandles();
-//        String twitter = "";
-//        for (String h : handles) {
-//            if (!h.equals(parent)) {
-//                twitter = h;
-//                System.out.println(h);
-//            }
-//
-//        }
-//        try {
-//            webDriver.switchTo().window(twitter);
-//            System.out.println("Title popup = " + webDriver.getTitle());
-//            Thread.sleep(3000);
-//            webDriver.findElement(By.xpath("//input[@name='session[username_or_email]']")).sendKeys("ngoc");
-//
-//        } catch (NoSuchWindowException e) {
-//            System.out.println("no the switch");
-//
-//            Thread.sleep(5000);
-//        }
-//    }
-
-//
-//    @Test
-//    public void range() throws InterruptedException {
-//     WebElement webElement= webDriver.findElement(By.xpath("//*[@id=\"slider1\"]/div/input"));
-//        new Actions(webDriver).dragAndDropBy(webElement, 40, 0).build().perform();
-//        Thread.sleep(5000);
-//    }
-
-    @BeforeMethod
-    public void beforeMethod() {
-        System.setProperty("webdriver.chrome.driver", "C://Users//LQA//Desktop//chromedriver.exe");
-//        System.setProperty("webdriver.edge.driver", "C://Users//LQA//Desktop//msedgedriver.exe");
-        webDriver = new ChromeDriver();
-//        webDriver = new EdgeDriver();
-        webDriver.manage().window().maximize();
-        webDriver.get("http://automationpractice.com/index.php");
-//        webDriver.get("https://www.seleniumeasy.com/test/drag-drop-range-sliders-demo.html");
-    }
-
-    @AfterMethod
-    public void afterMethod() {
-        webDriver.close();
-    }
-
-
-//    public static void main(String[] args) {
-//        try {
-//            URL url = new URL("https://trendmicro.ctydtp.vn/top-25-mat-khau-de-bi-hack-nhat.html");
-//            Scanner scanner = new Scanner(new InputStreamReader(url.openStream()));
-//            scanner.useDelimiter("\\Z");
-//            String content = scanner.next();
-//            scanner.close();
-//            content = content.replaceAll("\\n+", "");
-//            Pattern p = Pattern.compile("box-content blog-content\"><p>(.*?)</p></div>");
-//            Matcher m = p.matcher(content);
-//            List<String> list = new ArrayList<>();
-//            while (m.find()) {
-//                list.add(m.group(1));
-//            }
-//            System.out.println(list.toString());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//
-//        }
-//    }
 }

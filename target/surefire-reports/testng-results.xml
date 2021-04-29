@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="7" passed="7">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Surefire suite" duration-ms="109371" started-at="2021-04-27T08:54:27 ICT" finished-at="2021-04-27T08:56:16 ICT">
+    <groups>
+    </groups>
+    <test name="Surefire test" duration-ms="109371" started-at="2021-04-27T08:54:27 ICT" finished-at="2021-04-27T08:56:16 ICT">
+      <class name="com.example.demoselenium.finalproject.MainTest">
+        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="beforeSuite" is-config="true" duration-ms="247" started-at="2021-04-27T08:54:27 ICT" finished-at="2021-04-27T08:54:27 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeSuite -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="beforeMethod" is-config="true" duration-ms="13908" started-at="2021-04-27T08:54:27 ICT" finished-at="2021-04-27T08:54:41 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="createAccount()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="createAccount" duration-ms="16187" started-at="2021-04-27T08:54:41 ICT" finished-at="2021-04-27T08:54:57 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createAccount -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="afterMethod" is-config="true" duration-ms="172" started-at="2021-04-27T08:54:57 ICT" finished-at="2021-04-27T08:54:58 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="beforeMethod" is-config="true" duration-ms="10905" started-at="2021-04-27T08:54:58 ICT" finished-at="2021-04-27T08:55:09 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="createContactus()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="createContactus" duration-ms="6297" started-at="2021-04-27T08:55:09 ICT" finished-at="2021-04-27T08:55:15 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- createContactus -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="afterMethod" is-config="true" duration-ms="68" started-at="2021-04-27T08:55:15 ICT" finished-at="2021-04-27T08:55:15 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="beforeMethod" is-config="true" duration-ms="7779" started-at="2021-04-27T08:55:15 ICT" finished-at="2021-04-27T08:55:23 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="mouseAddCart()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="mouseAddCart" duration-ms="4932" started-at="2021-04-27T08:55:23 ICT" finished-at="2021-04-27T08:55:28 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- mouseAddCart -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="afterMethod" is-config="true" duration-ms="80" started-at="2021-04-27T08:55:28 ICT" finished-at="2021-04-27T08:55:28 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="beforeMethod" is-config="true" duration-ms="7391" started-at="2021-04-27T08:55:28 ICT" finished-at="2021-04-27T08:55:35 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="newsletter()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="newsletter" duration-ms="2202" started-at="2021-04-27T08:55:35 ICT" finished-at="2021-04-27T08:55:37 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- newsletter -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="afterMethod" is-config="true" duration-ms="155" started-at="2021-04-27T08:55:38 ICT" finished-at="2021-04-27T08:55:38 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="beforeMethod" is-config="true" duration-ms="6637" started-at="2021-04-27T08:55:38 ICT" finished-at="2021-04-27T08:55:44 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="removeCartAddCheckout()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="removeCartAddCheckout" duration-ms="1399" started-at="2021-04-27T08:55:44 ICT" finished-at="2021-04-27T08:55:46 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- removeCartAddCheckout -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="afterMethod" is-config="true" duration-ms="477" started-at="2021-04-27T08:55:46 ICT" finished-at="2021-04-27T08:55:46 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="beforeMethod" is-config="true" duration-ms="6458" started-at="2021-04-27T08:55:46 ICT" finished-at="2021-04-27T08:55:53 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="sale20()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="sale20" duration-ms="3290" started-at="2021-04-27T08:55:53 ICT" finished-at="2021-04-27T08:55:56 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- sale20 -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="afterMethod" is-config="true" duration-ms="1201" started-at="2021-04-27T08:55:56 ICT" finished-at="2021-04-27T08:55:57 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+        <test-method status="PASS" signature="beforeMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="beforeMethod" is-config="true" duration-ms="8302" started-at="2021-04-27T08:55:57 ICT" finished-at="2021-04-27T08:56:06 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- beforeMethod -->
+        <test-method status="PASS" signature="searchClear()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="searchClear" duration-ms="10544" started-at="2021-04-27T08:56:06 ICT" finished-at="2021-04-27T08:56:16 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- searchClear -->
+        <test-method status="PASS" signature="afterMethod()[pri:0, instance:com.example.demoselenium.finalproject.MainTest@385e36d4]" name="afterMethod" is-config="true" duration-ms="68" started-at="2021-04-27T08:56:16 ICT" finished-at="2021-04-27T08:56:16 ICT">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- afterMethod -->
+      </class> <!-- com.example.demoselenium.finalproject.MainTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
