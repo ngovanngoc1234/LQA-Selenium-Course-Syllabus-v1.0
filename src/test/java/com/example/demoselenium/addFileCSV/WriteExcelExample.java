@@ -120,51 +120,51 @@ public class WriteExcelExample implements Serializable {
 
         cell = row.createCell(COLUMN_INDEX_FOOD);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("food");
+        cell.setCellValue("Món ăn/ Nước uống");
 
         cell = row.createCell(COLUMN_INDEX_SIZE);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("size");
+        cell.setCellValue("Kích thước");
 
         cell = row.createCell(COLUMN_INDEX_QUANTITY);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("Quantity");
+        cell.setCellValue("Số lượng");
 
         cell = row.createCell(COLUMN_INDEX_WEIGHT);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("weight");
+        cell.setCellValue("Trọng lượng/ Khối lượng");
 
         cell = row.createCell(COLUMN_INDEX_TEMPERATURE);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("temperature");
+        cell.setCellValue("Nhiệt độ");
 
         cell = row.createCell(COLUMN_INDEX_SMELL);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("smell");
+        cell.setCellValue("Hương vị");
 
         cell = row.createCell(COLUMN_INDEX_CONSTITUTIVE);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("constitutive");
+        cell.setCellValue("Cấu thành");
 
         cell = row.createCell(COLUMN_INDEX_OFFER);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("offer");
+        cell.setCellValue(" Đề xuất");
 
         cell = row.createCell(COLUMN_INDEX_PROMOTION);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("promotion");
+        cell.setCellValue("Khuyến mãi");
 
         cell = row.createCell(COLUMN_INDEX_CARTS);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("carts");
+        cell.setCellValue("Cửa hàng/Gói mang đi");
 
         cell = row.createCell(COLUMN_INDEX_OTHER);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("other");
+        cell.setCellValue("Khác");
 
         cell = row.createCell(COLUMN_INDEX_STATUS);
         cell.setCellStyle(cellStyle);
-        cell.setCellValue("status");
+        cell.setCellValue("Status Non_workable");
 
 
     }
