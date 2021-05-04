@@ -51,10 +51,9 @@ public class MainCSV extends BaseTest implements Serializable {
         }
 // Switch back to original browser (first window)
         webDriver.switchTo().window(PopupHandle);
-
 //        list id
-        int checkStop = 0;
-        while (checkStop != 10000) {
+        int check = 0;
+        for (int i = 0; i < 1000; i++) {
             String id;
             String examples = "";
             String food = "";
@@ -129,25 +128,19 @@ public class MainCSV extends BaseTest implements Serializable {
                 cartShipper = "";
                 other = "";
                 status = "";
-                checkStop++;
+                check++;
+                if (check == 10) {
+                    return;
+                }
             }
-
-            System.out.println(checkStop);
             clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tfoot/tr/td/ul/li[3]/button"));
             Thread.sleep(1500);
-//            webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         }
         extentTest = extentReport.createTest("check timeOut");
         extentTest.info("good ok");
         extentTest.pass("PASS");
         extentReport.flush();
     }
-
-
-//    @BeforeMethod
-//    public void beforeMethod() {
-//
-//    }
 
     @AfterMethod
     public void afterMethod() throws Exception {
