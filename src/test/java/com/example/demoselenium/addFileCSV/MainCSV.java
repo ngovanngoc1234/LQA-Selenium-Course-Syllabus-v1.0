@@ -24,10 +24,9 @@ public class MainCSV extends BaseTest implements Serializable {
     public void Test() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\LQA\\Desktop\\crack\\chromedriver.exe");
         webDriver = new ChromeDriver();
-        webDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
         webDriver.get("https://client.crowdworks.kr/member/login");
-//        webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 //        form đăng nhập
         sendKeyMethod(By.xpath("//*[@id=\"root\"]/div[1]/section[1]/div[2]/div[2]/form/ul/li[1]/div/ul/li[1]/input"), "tien.vu@lqa.com.vn");
         sendKeyMethod(By.xpath("//*[@id=\"root\"]/div[1]/section[1]/div[2]/div[2]/form/ul/li[2]/div/ul/li[1]/input"), "NVgde2ZSMTW4swB");
@@ -55,7 +54,7 @@ public class MainCSV extends BaseTest implements Serializable {
 
 //        list id
         int checkStop = 0;
-        while (checkStop != 67) {
+        while (checkStop != 10000) {
             String id;
             String examples = "";
             String food = "";
@@ -76,7 +75,7 @@ public class MainCSV extends BaseTest implements Serializable {
 //                click vao ID
                 dataIdButton.click();
                 id = dataIdButton.getText();
-//                webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//                chuyển iframe
                 webDriver.switchTo().frame(webDriver.findElement(By.xpath("//iframe[@title=\"monitor\"]")));
                 List<WebElement> listExample = webDriver.findElements(By.xpath("//*[@id=\"root\"]/div/section/ul/li/div/section/ul/li/div/div/section/div/ul/li/div/div/span"));
                 System.out.println("span size = " + listExample.size());
@@ -135,7 +134,7 @@ public class MainCSV extends BaseTest implements Serializable {
 
             System.out.println(checkStop);
             clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tfoot/tr/td/ul/li[3]/button"));
-            Thread.sleep(2000);
+            Thread.sleep(1500);
 //            webDriver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         }
         extentTest = extentReport.createTest("check timeOut");

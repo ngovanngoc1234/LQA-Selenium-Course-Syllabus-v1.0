@@ -13,15 +13,12 @@ import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.BuiltinFormats;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class WriteExcelExample implements Serializable {
@@ -225,15 +222,6 @@ public class WriteExcelExample implements Serializable {
 
         cell = row.createCell(COLUMN_INDEX_STATUS);
         cell.setCellValue(ReadCSV.getStatus());
-        // Create cell formula
-        // totalMoney = price * quantity
-//        cell = row.createCell(, CellType.FORMULA);
-//        cell.setCellStyle(cellStyleFormatNumber);
-//        int currentRow = row.getRowNum() + 1;
-//        String columnPrice = CellReference.convertNumToColString(COLUMN_INDEX_PRICE);
-//        String columnQuantity = CellReference.convertNumToColString(COLUMN_INDEX_QUANTITY);
-//        cell.setCellFormula(columnPrice + currentRow + "*" + columnQuantity + currentRow);\
-
     }
 
     // Create CellStyle for header
@@ -253,14 +241,6 @@ public class WriteExcelExample implements Serializable {
         cellStyle.setBorderBottom(BorderStyle.THIN);
         return cellStyle;
     }
-
-    // Write footer
-//    private static void writeFooter(Sheet sheet, int rowIndex) {
-//        // Create row
-//        Row row = sheet.createRow(rowIndex);
-//        Cell cell = row.createCell(COLUMN_INDEX_TOTAL, CellType.FORMULA);
-//        cell.setCellFormula("SUM(E2:E6)");
-//    }
 
     // Auto resize column width
     private static void autosizeColumn(Sheet sheet, int lastColumn) {
