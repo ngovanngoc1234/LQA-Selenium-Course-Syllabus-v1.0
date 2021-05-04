@@ -1,6 +1,7 @@
 package com.example.demoselenium.finalproject.page;
 
-import com.example.demoselenium.finalproject.BaseTest;
+
+import com.example.demoselenium.finalproject.object.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

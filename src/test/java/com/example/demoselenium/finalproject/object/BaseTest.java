@@ -1,4 +1,4 @@
-package com.example.demoselenium.finalproject;
+package com.example.demoselenium.finalproject.object;
 
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
