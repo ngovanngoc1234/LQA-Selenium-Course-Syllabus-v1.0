@@ -3,9 +3,12 @@ package com.example.demoselenium.finalproject.object;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.example.demoselenium.POM.lib.ReportUtil;
+//import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -50,19 +53,18 @@ public class BaseTest {
         webDriver.findElement(by).clear();
     }
 
-//    @BeforeMethod
+    @BeforeMethod
     public void beforeMethod() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\LQA\\Desktop\\crack\\chromedriver.exe");
-//        System.setProperty("webdriver.edge.driver", "C://Users//LQA//Desktop//msedgedriver.exe");
+//        WebDriverManager.chromedriver().setup();
+//        WebDriverManager.edgedriver().setup();
         webDriver = new ChromeDriver();
 //        webDriver = new EdgeDriver();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
         webDriver.get("http://automationpractice.com/index.php");
-//        webDriver.get("https://www.seleniumeasy.com/test/drag-drop-range-sliders-demo.html");
     }
 
-    @AfterMethod
+//    @AfterMethod
     public void afterMethod() throws Exception {
         webDriver.close();
     }

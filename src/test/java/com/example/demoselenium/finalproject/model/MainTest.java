@@ -3,11 +3,17 @@ package com.example.demoselenium.finalproject.model;
 
 import com.example.demoselenium.finalproject.object.BaseTest;
 import com.example.demoselenium.finalproject.page.*;
+import com.mongodb.util.JSON;
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -16,9 +22,10 @@ import java.util.List;
 
 import java.util.concurrent.TimeUnit;
 
+import static io.restassured.RestAssured.given;
+
 
 public class MainTest extends BaseTest {
-    WebDriverWait webDriverWait;
 
     @Test
     public void createAccount() throws InterruptedException {
@@ -26,8 +33,7 @@ public class MainTest extends BaseTest {
         home.signIn();
         CreateAccount createAccount = new CreateAccount(webDriver);
         IsCreateAccount isCreateAccount = new IsCreateAccount(webDriver);
-        isCreateAccount.createAccount("abc1231344544@gmail.com");
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        isCreateAccount.createAccount("abc123134884544@gmail.com");
         boolean flag;
         if (isCreateAccount.isElementPresent(isCreateAccount.SUCCESSFULLY, webDriver)) {
             System.out.println("tao thanh cong");
@@ -58,7 +64,7 @@ public class MainTest extends BaseTest {
     @Test
     public void newsletter() {
         Newsletter newsletter = new Newsletter(webDriver);
-        newsletter.submitNewsletterEmail("ngovanngoc1122@yahoo.com");
+        newsletter.submitNewsletterEmail("ngovanngoc112662@yahoo.com");
         extentTest = extentReport.createTest("newsletter");
         extentTest.info(" You have successfully subscribed to this newsletter.");
         WebElement webElement = webDriver.findElement(By.xpath("//*[@id=\"columns\"]/p"));
