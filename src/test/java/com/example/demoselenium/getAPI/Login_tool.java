@@ -1,10 +1,7 @@
 package com.example.demoselenium.getAPI;
 
-import com.example.demoselenium.addFileCSV.ReadCSV;
-import com.example.demoselenium.addFileCSV.WriteExcelExample;
 import com.fasterxml.jackson.core.type.TypeReference;
-//import com.mashape.unirest.http.ObjectMapper;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -17,25 +14,24 @@ import object.DataID;
 import object.Token;
 import org.testng.annotations.Test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+//import com.mashape.unirest.http.ObjectMapper;
+
 public class Login_tool implements Serializable {
 
     ReadListID readListID = new ReadListID();
     List<DataID> arrayListID = new ArrayList<>();
-    String excelFilePath = "C:\\Users\\LQA\\Desktop\\listID.xlsx";
+    List<String> listSource = new ArrayList<>();
+    List<String> listResult = new ArrayList<>();
+    String excelFilePath = "C:\\Users\\Admin\\Desktop\\listId.xlsx";
     Account account = new Account();
     object.Token token = new Token();
 
-    String sourceApiUrl;
-    String resultApiUrl;
     String projectID = "7600";
-    String dataID = "";
 
     @Test(priority = 1)
     public void LoginTool() {
@@ -63,7 +59,7 @@ public class Login_tool implements Serializable {
         int count = 0;
         ObjectMapper mapper = new ObjectMapper();
         RestAssured.baseURI = "https://coapi.crowdworks.kr";
-        for (int i = 1; i < 501; i++) {
+        for (int i = 1; i < 5; i++) {
             RestAssured.basePath = "/project/7600/output";
 
             Response response = RestAssured.given().
@@ -95,42 +91,50 @@ public class Login_tool implements Serializable {
         readListID.writeExcel(arrayListID, excelFilePath);
     }
 
-//        String a = list.get(0).getDataId();
-//        System.out.println(a);
 
-
-    //    @Test(priority = 3)
+        @Test(priority = 3)
     public void GetURL() {
         RestAssured.baseURI = "https://coapi.crowdworks.kr";
-        RestAssured.basePath = "/project/" + projectID + "/output/" + dataID;
+        String sourceApiUrl = "";
+        String resultApiUrl = "";
+        for (int i = 0; i < arrayListID.size(); i++) {
+            RestAssured.basePath = "/project/" + projectID + "/output/" + arrayListID.get(i).getId();
+            Response response = RestAssured.given().log().all()
+                    .header("Authorization", "Bearer" + token.getToken())
+                    .header("X-AUTH-TOKEN", token.getToken())
+                    .contentType(ContentType.JSON)
+                    .when()
+                    .get();
+            response.prettyPrint();
+            sourceApiUrl = response.jsonPath().get("sourceApiUrl");
+            resultApiUrl = response.jsonPath().get("resultApiUrl");
+            System.out.println("source" + sourceApiUrl);
+            System.out.println("result" + resultApiUrl);
+            listSource.add(sourceApiUrl);
+            listResult.add(resultApiUrl);
+            sourceApiUrl = null;
+            resultApiUrl = null;
 
-        Response response = RestAssured.given().log().all()
-                .header("Authorization", "Bearer" + token.getToken())
-                .header("X-AUTH-TOKEN", token.getToken())
-                .contentType(ContentType.JSON)
-                .when()
-                .get();
-        response.prettyPrint();
-        sourceApiUrl = response.jsonPath().get("sourceApiUrl");
-        resultApiUrl = response.jsonPath().get("resultApiUrl");
-        System.out.println("source" + sourceApiUrl);
-        System.out.println("result" + resultApiUrl);
-
+        }
     }
 
-    //    @Test(priority = 4)
+        @Test(priority = 4)
     public void Get_sourceApiUrl() throws UnirestException {
         Unirest.setTimeouts(0, 0);
-        HttpResponse<String> response = Unirest.get(sourceApiUrl).asString();
-        System.out.println(response.getBody());
+        for (String s : listSource) {
+            HttpResponse<String> response = Unirest.get(s).asString();
+            System.out.println(response.getBody());
 
+        }
     }
 
-    //    @Test(priority = 5)
+        @Test(priority = 5)
     public void Get_resultApiUrl() throws UnirestException {
         Unirest.setTimeouts(0, 0);
-        HttpResponse<String> response = Unirest.get(resultApiUrl).asString();
-        System.out.println(response.getBody());
+        for (String s : listResult) {
+            HttpResponse<String> response = Unirest.get(s).asString();
+            System.out.println(response.getBody());
+        }
     }
 
 

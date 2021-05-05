@@ -3,7 +3,7 @@ package com.example.demoselenium.POM.lib;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.aventstack.extentreports.ExtentTest;
+
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import com.aventstack.extentreports.reporter.configuration.ChartLocation;
 import com.aventstack.extentreports.reporter.configuration.Theme;
