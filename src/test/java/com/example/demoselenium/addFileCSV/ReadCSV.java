@@ -17,6 +17,7 @@ public class ReadCSV implements Serializable {
     private String cartShipper;
     private String other;
     private String status;
+    private String workerName;
 
     public ReadCSV() {
         super();
@@ -25,7 +26,7 @@ public class ReadCSV implements Serializable {
     public ReadCSV(String ID, String example, String food, String size,
                    String quantity, String weight, String temperatureC, String smell,
                    String constitutive, String offer, String promotion, String cartShipper,
-                   String other, String status) {
+                   String other, String status, String workerName) {
         super();
         this.ID = ID;
         this.example = example;
@@ -41,6 +42,15 @@ public class ReadCSV implements Serializable {
         this.cartShipper = cartShipper;
         this.other = other;
         this.status = status;
+        this.workerName = workerName;
+    }
+
+    public String getWorkerName() {
+        return workerName;
+    }
+
+    public void setWorkerName(String workerName) {
+        this.workerName = workerName;
     }
 
     public String getID() {

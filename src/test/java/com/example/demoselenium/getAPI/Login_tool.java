@@ -38,9 +38,6 @@ public class Login_tool implements Serializable {
     Account account = new Account();
     object.Token token = new Token();
 
-    String projectID = "7600";
-
-
     String examples = "";
     String food = "";
     String size = "";
@@ -55,16 +52,14 @@ public class Login_tool implements Serializable {
     String other = "";
     String status = "";
     String id = "";
+    String workerName = "";
 
-    Scanner sc = new Scanner(System.in);
-    int num = 0;
-    int record = 0;
+
+    int num = 7600;
+    int record = 5;
+
     @Test(priority = 1)
     public void LoginTool() {
-        System.out.println("input name Project");
-        num = Integer.parseInt(sc.nextLine());
-        System.out.println("record input");
-        record = Integer.parseInt(sc.nextLine());
         account.setEmail("tien.vu@lqa.com.vn");
         account.setPassword("NVgde2ZSMTW4swB");
 
@@ -110,7 +105,7 @@ public class Login_tool implements Serializable {
                 id = c.getDataId();
                 System.out.println(id);
                 System.out.println(count++);
-                ReadCSV readCSV = new ReadCSV(id, examples, food, size, quantity, weight, temperatureC, smell, constitutive, offer, promotion, cartShipper, other, status);
+                ReadCSV readCSV = new ReadCSV(id, examples, food, size, quantity, weight, temperatureC, smell, constitutive, offer, promotion, cartShipper, other, status, workerName);
                 arrayListID.add(readCSV);
                 id = null;
             }
@@ -158,10 +153,10 @@ public class Login_tool implements Serializable {
             HttpResponse<String> response = Unirest.get(listSource.get(i)).asString();
             String sourceName = response.getBody();
             JSONObject objectJson = new JSONObject(sourceName);
-            examples = objectJson.getString("menu_name");
-            System.out.println(examples);
-            arrayListID.get(i).setExample(examples);
-            examples = null;
+            String example = objectJson.getString("menu_name");
+            System.out.println(example);
+            arrayListID.get(i).setExample(example);
+            example = null;
             p++;
             System.out.println(p);
         }
@@ -169,7 +164,6 @@ public class Login_tool implements Serializable {
 
 
     List<JSONArray> objectList = new ArrayList<>();
-    List<JSONArray> getObjectList = new ArrayList<>();
 
     @Test(priority = 5)
     public void Get_resultApiUrl() throws UnirestException, IOException {
@@ -184,16 +178,11 @@ public class Login_tool implements Serializable {
             String s = response.getBody();
             JSONObject jsonObject = new JSONObject(s);
 
-            JSONArray xxx = jsonObject
-                    .getJSONArray("results").getJSONArray(1);
-
-            if (xxx.length() < 1) {
-                continue;
-            }
-
             JSONArray arrays = jsonObject
                     .getJSONArray("results")
                     .getJSONArray(1).getJSONObject(0).getJSONArray("name_2WV7BM");
+
+            String jo = jsonObject.getJSONObject("works").getString("workerName");
 
             if (arrays.length() == 0) {
                 arrayListID.get(j).setStatus("non-workable");
@@ -204,64 +193,65 @@ public class Login_tool implements Serializable {
             objectList.add(arrays);
 
             for (int i = 0, objectListSize = objectList.size(); i < objectListSize; i++) {
+                arrayListID.get(i).setWorkerName(jo);
+                jo = null;
                 JSONArray objects = objectList.get(i);
-
                 for (int k = 0; k < objectList.get(i).length(); k++) {
                     String st = objects.getJSONObject(k).getString("name_K6T9L7");
                     switch (st) {
                         case "사이즈":
                             String size = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(j).setSize(size + ",");
+                            arrayListID.get(i).setSize(size);
                             size = null;
                             break;
                         case "구성":
                             String ct = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(j).setConstitutive(ct + ",");
+                            arrayListID.get(i).setConstitutive(ct);
                             ct = null;
                             break;
                         case "수량":
                             String sl = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(j).setQuantity(sl + ",");
+                            arrayListID.get(i).setQuantity(sl);
                             sl = null;
                             break;
                         case "중량/용량":
                             String kg = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(j).setWeight(kg + ",");
+                            arrayListID.get(i).setWeight(kg);
                             kg = null;
                             break;
                         case "온도":
                             String c = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(j).setTemperatureC(c + ",");
+                            arrayListID.get(i).setTemperatureC(c);
                             c = null;
                             break;
                         case "추천":
                             String offer = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(j).setOffer(offer + ",");
+                            arrayListID.get(i).setOffer(offer);
                             offer = null;
                             break;
                         case "프로모션":
                             String km = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(j).setPromotion(km + ",");
+                            arrayListID.get(i).setPromotion(km);
                             km = null;
                             break;
                         case "매장/포장":
                             String ship = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(j).setCartShipper(ship + ",");
+                            arrayListID.get(i).setCartShipper(ship);
                             ship = null;
                             break;
                         case "메뉴":
                             String food = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(j).setFood(food + ",");
+                            arrayListID.get(i).setFood(food);
                             food = null;
                             break;
                         case "맛":
                             String h = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(j).setSmell(h + ",");
+                            arrayListID.get(i).setSmell(h);
                             h = null;
                             break;
                         case "기타":
                             String other = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(j).setSmell(other + ",");
+                            arrayListID.get(i).setOther(other);
                             other = null;
                             break;
                     }
@@ -271,6 +261,7 @@ public class Login_tool implements Serializable {
             s = null;
         }
         readListID.writeExcel(arrayListID, excelFilePath);
+
     }
 
 

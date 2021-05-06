@@ -26,6 +26,8 @@ public class WriteExcelExample implements Serializable {
     public static final int COLUMN_INDEX_CARTS = 11;
     public static final int COLUMN_INDEX_OTHER = 12;
     public static final int COLUMN_INDEX_STATUS = 13;
+    public static final int COLUMN_INDEX_WORKER_NAME = 14;
+
     private static CellStyle cellStyleFormatNumber = null;
 
 
@@ -152,6 +154,10 @@ public class WriteExcelExample implements Serializable {
         cell = row.createCell(COLUMN_INDEX_STATUS);
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Status Non_workable");
+//        COLUMN_INDEX_WORKER_NAME
+        cell = row.createCell(COLUMN_INDEX_WORKER_NAME);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("worker Name");
 
 
     }
@@ -178,7 +184,6 @@ public class WriteExcelExample implements Serializable {
 
         cell = row.createCell(COLUMN_INDEX_FOOD);
         cell.setCellValue(ReadCSV.getFood());
-//        cell.setCellStyle(cellStyleFormatNumber);
 
         cell = row.createCell(COLUMN_INDEX_SIZE);
         cell.setCellValue(ReadCSV.getSize());
@@ -212,6 +217,9 @@ public class WriteExcelExample implements Serializable {
 
         cell = row.createCell(COLUMN_INDEX_STATUS);
         cell.setCellValue(ReadCSV.getStatus());
+
+        cell = row.createCell(COLUMN_INDEX_WORKER_NAME);
+        cell.setCellValue(ReadCSV.getWorkerName());
     }
 
     // Create CellStyle for header
