@@ -15,51 +15,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="commons-codec-1.15" level="project" />
-    <orderEntry type="library" name="xmlbeans-4.0.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.qameta.allure:allure-testng:2.13.8" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.qameta.allure:allure-java-commons:2.13.8" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.qameta.allure:allure-model:2.13.8" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apache.commons:commons-exec:1.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.squareup.okhttp3:okhttp:3.11.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.squareup.okio:okio:1.14.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apache.httpcomponents.client5:httpclient5:5.0.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apache.httpcomponents.core5:httpcore5:5.0.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.qameta.allure:allure-selenide:2.13.8" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.github.bonigarcia:webdrivermanager:4.3.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: commons-io:commons-io:2.8.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.11" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: javax.xml.bind:jaxb-api:2.3.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.sun.xml.bind:jaxb-core:2.3.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.sun.xml.bind:jaxb-impl:2.3.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apache.logging.log4j:log4j-1.2-api:2.13.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: net.lingala.zip4j:zip4j:2.6.4" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.google.oauth-client:google-oauth-client-appengine:1.23.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.google.oauth-client:google-oauth-client:1.23.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.google.oauth-client:google-oauth-client-servlet:1.23.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: javax.jdo:jdo2-api:2.3-eb" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: javax.transaction:transaction-api:1.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: aopalliance:aopalliance:1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.maven:maven-plugin-api:3.6.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy-json:2.5.8" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.rest-assured:rest-assured-all:4.3.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: jakarta.activation:jakarta.activation-api:1.2.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.sun.xml.bind:jaxb-osgi:2.3.0.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apache.sling:org.apache.sling.javax.activation:0.1.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: javax.activation:activation:1.1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-collections4:4.4" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: io.rest-assured:json-schema-validator:4.2.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.github.java-json-tools:json-schema-validator:2.2.10" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.github.java-json-tools:jackson-coreutils:1.9" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.github.fge:msg-simple:1.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.github.fge:btf:1.2" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.github.fge:uri-template:0.9" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: joda-time:joda-time:2.9.7" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.googlecode.libphonenumber:libphonenumber:8.0.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: net.sf.jopt-simple:jopt-simple:5.0.3" level="project" />
-    <orderEntry type="library" name="poi-scratchpad-5.0.0" level="project" />
-    <orderEntry type="library" name="xml-apis-ext-1.3.04" level="project" />
+    <orderEntry type="library" name="commons-compress-1.20" level="project" />
+    <orderEntry type="library" name="batik-all-1.13" level="project" />
+    <orderEntry type="library" name="poi-5.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.aventstack:extentreports:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.freemarker:freemarker:2.3.23" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver:3.3.0" level="project" />
@@ -79,19 +37,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.tika:tika-core:1.24.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.jooq:joor-java-8:0.9.13" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.codeborne:selenide:5.19.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-java:3.141.59" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-api:3.141.59" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-chrome-driver:3.141.59" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-edge-driver:3.141.59" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-firefox-driver:3.141.59" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-ie-driver:3.141.59" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-opera-driver:3.141.59" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-remote-driver:3.141.59" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-safari-driver:3.141.59" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-support:3.141.59" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apache.commons:commons-exec:1.3" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.squareup.okhttp3:okhttp:3.11.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.squareup.okio:okio:1.14.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.rauschig:jarchivelib:1.1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.httpcomponents.client5:httpclient5:5.0.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apache.httpcomponents.core5:httpcore5:5.0.2" level="project" />
@@ -192,5 +137,19 @@
     <orderEntry type="library" scope="TEST" name="Maven: joda-time:joda-time:2.9.7" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.googlecode.libphonenumber:libphonenumber:8.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.sf.jopt-simple:jopt-simple:5.0.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-java:3.141.59" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-api:3.141.59" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-chrome-driver:3.141.59" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-edge-driver:3.141.59" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-firefox-driver:3.141.59" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-ie-driver:3.141.59" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-opera-driver:3.141.59" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-remote-driver:3.141.59" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-safari-driver:3.141.59" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.seleniumhq.selenium:selenium-support:3.141.59" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: net.bytebuddy:byte-buddy:1.8.15" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.commons:commons-exec:1.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.squareup.okhttp3:okhttp:3.11.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.squareup.okio:okio:1.14.0" level="project" />
   </component>
 </module>
