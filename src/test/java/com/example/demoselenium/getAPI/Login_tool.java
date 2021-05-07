@@ -11,10 +11,7 @@ import com.mongodb.util.JSON;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import object.Account;
-import object.Content;
-import object.DataID;
-import object.Token;
+import object.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
@@ -32,8 +29,7 @@ public class Login_tool implements Serializable {
 
     WriteExcelExample readListID = new WriteExcelExample();
     List<ReadCSV> arrayListID = new ArrayList<>();
-    List<String> listSource = new ArrayList<>();
-    List<String> listResult = new ArrayList<>();
+    List<SourceAndResult> sourceAndResults = new ArrayList<>();
     String excelFilePath = "C:\\Users\\LQA\\Desktop\\Output.xlsx";
     Account account = new Account();
     object.Token token = new Token();
@@ -56,7 +52,7 @@ public class Login_tool implements Serializable {
 
 
     int num = 7600;
-    int record = 5;
+    int record = 3;
 
     @Test(priority = 1)
     public void LoginTool() {
@@ -72,7 +68,6 @@ public class Login_tool implements Serializable {
                 .body(account)
                 .post();
 
-//        response.prettyPrint();
         String tokens = response.jsonPath().get("token");
         System.out.println("token = " + tokens);
         this.token.setToken(tokens);
@@ -127,16 +122,13 @@ public class Login_tool implements Serializable {
                     .when()
                     .get();
             sourceApiUrl = response.jsonPath().get("sourceApiUrl");
-            if (response.jsonPath().get("resultApiUrl") != null) {
-                resultApiUrl = response.jsonPath().get("resultApiUrl");
-            } else {
-                resultApiUrl = "no found";
-            }
+            resultApiUrl = response.jsonPath().get("resultApiUrl");
+
 
             System.out.println("source" + sourceApiUrl);
             System.out.println("result" + resultApiUrl);
-            listSource.add(sourceApiUrl);
-            listResult.add(resultApiUrl);
+            SourceAndResult andResult = new SourceAndResult(sourceApiUrl, resultApiUrl);
+            sourceAndResults.add(andResult);
             sourceApiUrl = null;
             resultApiUrl = null;
 
@@ -148,9 +140,8 @@ public class Login_tool implements Serializable {
     @Test(priority = 4)
     public void Get_sourceApiUrl() throws UnirestException, IOException {
         Unirest.setTimeouts(0, 0);
-
-        for (int i = 0; i < listSource.size(); i++) {
-            HttpResponse<String> response = Unirest.get(listSource.get(i)).asString();
+        for (int i = 0; i < sourceAndResults.size(); i++) {
+            HttpResponse<String> response = Unirest.get(sourceAndResults.get(i).getSource()).asString();
             String sourceName = response.getBody();
             JSONObject objectJson = new JSONObject(sourceName);
             String example = objectJson.getString("menu_name");
@@ -168,97 +159,103 @@ public class Login_tool implements Serializable {
     @Test(priority = 5)
     public void Get_resultApiUrl() throws UnirestException, IOException {
         Unirest.setTimeouts(0, 0);
-        for (int j = 0; j < listResult.size(); j++) {
-            if (listResult.get(j).equals("no found")) {
-                arrayListID.get(j).setOther("no found");
-                continue;
-            }
-            String value = listResult.get(j);
-            HttpResponse<String> response = Unirest.get(value).asString();
-            String s = response.getBody();
-            JSONObject jsonObject = new JSONObject(s);
+        for (int j = 0; j < sourceAndResults.size(); j++) {
+            String value = sourceAndResults.get(j).getResult();
+            if (value != null) {
+                HttpResponse<String> response = Unirest.get(value).asString();
+                String s = response.getBody();
+                JSONObject jsonObject = new JSONObject(s);
 
-            JSONArray arrays = jsonObject
-                    .getJSONArray("results")
-                    .getJSONArray(1).getJSONObject(0).getJSONArray("name_2WV7BM");
+                JSONArray arrays = jsonObject
+                        .getJSONArray("results")
+                        .getJSONArray(1).getJSONObject(0).getJSONArray("name_2WV7BM");
 
-            String jo = jsonObject.getJSONObject("works").getString("workerName");
-
-            if (arrays.length() == 0) {
-                arrayListID.get(j).setStatus("non-workable");
-                continue;
-            }
-            System.out.println(arrays);
-            System.out.println(" length arr " + arrays.length());
-            objectList.add(arrays);
-
-            for (int i = 0, objectListSize = objectList.size(); i < objectListSize; i++) {
-                arrayListID.get(i).setWorkerName(jo);
+                String jo = jsonObject.getJSONObject("works").getString("workerName");
+                arrayListID.get(j).setWorkerName(jo);
                 jo = null;
-                JSONArray objects = objectList.get(i);
-                for (int k = 0; k < objectList.get(i).length(); k++) {
-                    String st = objects.getJSONObject(k).getString("name_K6T9L7");
-                    switch (st) {
-                        case "사이즈":
-                            String size = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(i).setSize(size);
-                            size = null;
-                            break;
-                        case "구성":
-                            String ct = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(i).setConstitutive(ct);
-                            ct = null;
-                            break;
-                        case "수량":
-                            String sl = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(i).setQuantity(sl);
-                            sl = null;
-                            break;
-                        case "중량/용량":
-                            String kg = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(i).setWeight(kg);
-                            kg = null;
-                            break;
-                        case "온도":
-                            String c = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(i).setTemperatureC(c);
-                            c = null;
-                            break;
-                        case "추천":
-                            String offer = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(i).setOffer(offer);
-                            offer = null;
-                            break;
-                        case "프로모션":
-                            String km = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(i).setPromotion(km);
-                            km = null;
-                            break;
-                        case "매장/포장":
-                            String ship = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(i).setCartShipper(ship);
-                            ship = null;
-                            break;
-                        case "메뉴":
-                            String food = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(i).setFood(food);
-                            food = null;
-                            break;
-                        case "맛":
-                            String h = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(i).setSmell(h);
-                            h = null;
-                            break;
-                        case "기타":
-                            String other = objects.getJSONObject(k).getString("text");
-                            arrayListID.get(i).setOther(other);
-                            other = null;
-                            break;
+
+                if (arrays.length() == 0) {
+                    arrayListID.get(j).setStatus("non-workable");
+                    objectList.add(arrays);
+                    continue;
+                }
+
+                System.out.println(arrays);
+                System.out.println(" length arr " + arrays.length());
+                objectList.add(arrays);
+
+                for (int i = 0; i < objectList.size(); i++) {
+                    JSONArray objects = objectList.get(i);
+                    for (int k = 0; k < objectList.get(i).length(); k++) {
+                        String st = objects.getJSONObject(k).getString("name_K6T9L7");
+                        switch (st) {
+                            case "사이즈":
+                                String size = objects.getJSONObject(k).getString("text");
+                                arrayListID.get(i).setSize(size);
+                                size = null;
+                                break;
+                            case "구성":
+                                String ct = objects.getJSONObject(k).getString("text");
+                                arrayListID.get(i).setConstitutive(ct);
+                                ct = null;
+                                break;
+                            case "수량":
+                                String sl = objects.getJSONObject(k).getString("text");
+                                arrayListID.get(i).setQuantity(sl);
+                                sl = null;
+                                break;
+                            case "중량/용량":
+                                String kg = objects.getJSONObject(k).getString("text");
+                                arrayListID.get(i).setWeight(kg);
+                                kg = null;
+                                break;
+                            case "온도":
+                                String c = objects.getJSONObject(k).getString("text");
+                                arrayListID.get(i).setTemperatureC(c);
+                                c = null;
+                                break;
+                            case "추천":
+                                String offer = objects.getJSONObject(k).getString("text");
+                                arrayListID.get(i).setOffer(offer);
+                                offer = null;
+                                break;
+                            case "프로모션":
+                                String km = objects.getJSONObject(k).getString("text");
+                                arrayListID.get(i).setPromotion(km);
+                                km = null;
+                                break;
+                            case "매장/포장":
+                                String ship = objects.getJSONObject(k).getString("text");
+                                arrayListID.get(i).setCartShipper(ship);
+                                ship = null;
+                                break;
+                            case "메뉴":
+                                String food = objects.getJSONObject(k).getString("text");
+                                arrayListID.get(i).setFood(food);
+                                food = null;
+                                break;
+                            case "맛":
+                                String h = objects.getJSONObject(k).getString("text");
+                                arrayListID.get(i).setSmell(h);
+                                h = null;
+                                break;
+                            case "기타":
+                                String other = objects.getJSONObject(k).getString("text");
+                                arrayListID.get(i).setOther(other);
+                                other = null;
+                                break;
+                        }
                     }
                 }
+                arrays = null;
+                s = null;
+            } else {
+                JSONArray objects = new JSONArray();
+                objectList.add(objects);
+                arrayListID.get(j).setStatus("no found");
+                objects = null;
+                System.out.println("AAAAAAAAAAAAAAA");
             }
-            arrays = null;
-            s = null;
         }
         readListID.writeExcel(arrayListID, excelFilePath);
 

@@ -66,14 +66,6 @@ public class WriteExcelExample implements Serializable {
     }
 
     // Create dummy data
-    private static List<ReadCSV> getBooks() {
-        List<ReadCSV> ReadCSV = new ArrayList<>();
-        ReadCSV Read;
-        for (int i = 0; i < 15; i++) {
-
-        }
-        return ReadCSV;
-    }
 
     // Create workbook
     private static Workbook getWorkbook(String excelFilePath) throws IOException {
