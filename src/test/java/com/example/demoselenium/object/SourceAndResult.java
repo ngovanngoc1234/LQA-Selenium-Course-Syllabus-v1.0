@@ -1,4 +1,4 @@
-package object;
+package com.example.demoselenium.object;
 
 import java.io.Serializable;
 

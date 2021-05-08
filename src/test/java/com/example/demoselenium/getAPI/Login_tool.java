@@ -7,11 +7,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mongodb.util.JSON;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import object.*;
+import com.example.demoselenium.object.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.Test;
@@ -19,11 +18,8 @@ import org.testng.annotations.Test;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
-//import com.mashape.unirest.http.ObjectMapper;
 
 public class Login_tool implements Serializable {
 
@@ -32,7 +28,7 @@ public class Login_tool implements Serializable {
     List<SourceAndResult> sourceAndResults = new ArrayList<>();
     String excelFilePath = "C:\\Users\\LQA\\Desktop\\Output.xlsx";
     Account account = new Account();
-    object.Token token = new Token();
+    com.example.demoselenium.object.Token token = new Token();
 
     String examples = "";
     String food = "";
@@ -91,7 +87,6 @@ public class Login_tool implements Serializable {
                     .contentType(ContentType.JSON)
                     .when()
                     .get();
-//        response.prettyPrint();
             List<Content> content = response.jsonPath().get("content");
             List<Content> dataId = mapper.convertValue(content, new TypeReference<List<Content>>() {
             });
