@@ -80,7 +80,7 @@ public class Login_tool implements Serializable {
         ObjectMapper mapper = new ObjectMapper();
         RestAssured.baseURI = "https://coapi.crowdworks.kr";
         for (int i = 1; i < record; i++) {
-            RestAssured.basePath = "/project/7600/output";
+            RestAssured.basePath = "/project/" + num + "/output";
 
             Response response = RestAssured.given().
                     queryParam("queryingField", "WORKER_NICKNAME")
