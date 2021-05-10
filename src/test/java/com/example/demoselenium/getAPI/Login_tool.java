@@ -13,12 +13,10 @@ import io.restassured.response.Response;
 import com.example.demoselenium.object.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.security.Security;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +47,7 @@ public class Login_tool implements Serializable {
     String workerName = "";
 
 
-    int num = 7600;
+    int nameProject = 7600;
     int record = 10;
 
     @Test(priority = 1)
@@ -78,7 +76,7 @@ public class Login_tool implements Serializable {
         ObjectMapper mapper = new ObjectMapper();
         RestAssured.baseURI = "https://coapi.crowdworks.kr";
         for (int i = 1; i < record; i++) {
-            RestAssured.basePath = "/project/" + num + "/output";
+            RestAssured.basePath = "/project/" + nameProject + "/output";
 
             Response response = RestAssured.given().
                     queryParam("queryingField", "WORKER_NICKNAME")
@@ -113,7 +111,7 @@ public class Login_tool implements Serializable {
         String sourceApiUrl = "";
         String resultApiUrl = "";
         for (int i = 0; i < arrayListID.size(); i++) {
-            RestAssured.basePath = "/project/" + num + "/output/" + arrayListID.get(i).getID();
+            RestAssured.basePath = "/project/" + nameProject + "/output/" + arrayListID.get(i).getID();
             Response response = RestAssured.given().log().all()
                     .header("Authorization", "Bearer" + token.getToken())
                     .header("X-AUTH-TOKEN", token.getToken())
