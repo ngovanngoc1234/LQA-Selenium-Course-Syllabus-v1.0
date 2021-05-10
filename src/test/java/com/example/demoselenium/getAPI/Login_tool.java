@@ -7,11 +7,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import com.mongodb.util.JSON;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import object.*;
+import com.example.demoselenium.object.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.testng.annotations.BeforeMethod;
@@ -21,9 +20,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.security.Security;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class Login_tool implements Serializable {
@@ -33,7 +30,7 @@ public class Login_tool implements Serializable {
     List<SourceAndResult> sourceAndResults = new ArrayList<>();
     String excelFilePath = "C:\\Users\\LQA\\Desktop\\Output.xlsx";
     Account account = new Account();
-    object.Token token = new Token();
+    com.example.demoselenium.object.Token token = new Token();
 
     String examples = "";
     String food = "";
@@ -81,7 +78,7 @@ public class Login_tool implements Serializable {
         ObjectMapper mapper = new ObjectMapper();
         RestAssured.baseURI = "https://coapi.crowdworks.kr";
         for (int i = 1; i < record; i++) {
-            RestAssured.basePath = "/project/7600/output";
+            RestAssured.basePath = "/project/" + num + "/output";
 
             Response response = RestAssured.given().
                     queryParam("queryingField", "WORKER_NICKNAME")
