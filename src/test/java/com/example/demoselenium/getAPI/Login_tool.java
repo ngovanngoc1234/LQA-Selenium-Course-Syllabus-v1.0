@@ -14,16 +14,17 @@ import io.restassured.response.Response;
 import object.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-//import com.mashape.unirest.http.ObjectMapper;
 
 public class Login_tool implements Serializable {
 
@@ -52,7 +53,7 @@ public class Login_tool implements Serializable {
 
 
     int num = 7600;
-    int record = 3;
+    int record = 10;
 
     @Test(priority = 1)
     public void LoginTool() {
@@ -91,7 +92,6 @@ public class Login_tool implements Serializable {
                     .contentType(ContentType.JSON)
                     .when()
                     .get();
-//        response.prettyPrint();
             List<Content> content = response.jsonPath().get("content");
             List<Content> dataId = mapper.convertValue(content, new TypeReference<List<Content>>() {
             });
@@ -99,10 +99,12 @@ public class Login_tool implements Serializable {
             for (Content c : dataId) {
                 id = c.getDataId();
                 System.out.println(id);
+                status = c.getDataStatusLocalName();
                 System.out.println(count++);
                 ReadCSV readCSV = new ReadCSV(id, examples, food, size, quantity, weight, temperatureC, smell, constitutive, offer, promotion, cartShipper, other, status, workerName);
                 arrayListID.add(readCSV);
                 id = null;
+                status = null;
             }
         }
     }
@@ -121,17 +123,14 @@ public class Login_tool implements Serializable {
                     .contentType(ContentType.JSON)
                     .when()
                     .get();
+
             sourceApiUrl = response.jsonPath().get("sourceApiUrl");
             resultApiUrl = response.jsonPath().get("resultApiUrl");
-
 
             System.out.println("source" + sourceApiUrl);
             System.out.println("result" + resultApiUrl);
             SourceAndResult andResult = new SourceAndResult(sourceApiUrl, resultApiUrl);
             sourceAndResults.add(andResult);
-            sourceApiUrl = null;
-            resultApiUrl = null;
-
         }
     }
 
@@ -147,7 +146,6 @@ public class Login_tool implements Serializable {
             String example = objectJson.getString("menu_name");
             System.out.println(example);
             arrayListID.get(i).setExample(example);
-            example = null;
             p++;
             System.out.println(p);
         }
@@ -172,7 +170,6 @@ public class Login_tool implements Serializable {
 
                 String jo = jsonObject.getJSONObject("works").getString("workerName");
                 arrayListID.get(j).setWorkerName(jo);
-                jo = null;
 
                 if (arrays.length() == 0) {
                     arrayListID.get(j).setStatus("non-workable");
@@ -186,79 +183,139 @@ public class Login_tool implements Serializable {
 
                 for (int i = 0; i < objectList.size(); i++) {
                     JSONArray objects = objectList.get(i);
+                    int food1 = 0;
+                    int size1 = 0;
+                    int sl1 = 0;
+                    int ct1 = 0;
+                    int c1 = 0;
+                    int other1 = 0;
+                    int km1 = 0;
+                    int h1 = 0;
+                    int st1 = 0;
+                    int kg1 = 0;
+                    int offer1 = 0;
                     for (int k = 0; k < objectList.get(i).length(); k++) {
                         String st = objects.getJSONObject(k).getString("name_K6T9L7");
                         switch (st) {
                             case "사이즈":
+                                size1++;
                                 String size = objects.getJSONObject(k).getString("text");
-                                arrayListID.get(i).setSize(size);
-                                size = null;
+                                if (size1 >= 2) {
+                                    String size2 = size + "," + arrayListID.get(i).getSize();
+                                    arrayListID.get(i).setSize(size2);
+                                } else {
+                                    arrayListID.get(i).setSize(size);
+                                }
                                 break;
                             case "구성":
+                                ct1++;
                                 String ct = objects.getJSONObject(k).getString("text");
-                                arrayListID.get(i).setConstitutive(ct);
-                                ct = null;
+                                if (ct1 >= 2) {
+                                    String ct2 = ct + "," + arrayListID.get(i).getConstitutive();
+                                    arrayListID.get(i).setConstitutive(ct2);
+                                } else {
+                                    arrayListID.get(i).setConstitutive(ct);
+                                }
                                 break;
                             case "수량":
+                                sl1++;
                                 String sl = objects.getJSONObject(k).getString("text");
-                                arrayListID.get(i).setQuantity(sl);
-                                sl = null;
+                                if (sl1 >= 2) {
+                                    String sl2 = sl + "," + arrayListID.get(i).getQuantity();
+                                    arrayListID.get(i).setQuantity(sl2);
+                                } else {
+                                    arrayListID.get(i).setQuantity(sl);
+                                }
                                 break;
                             case "중량/용량":
+                                kg1++;
                                 String kg = objects.getJSONObject(k).getString("text");
-                                arrayListID.get(i).setWeight(kg);
-                                kg = null;
+                                if (kg1 >= 2) {
+                                    String kg2 = kg + "," + arrayListID.get(i).getWeight();
+                                    arrayListID.get(i).setWeight(kg2);
+                                } else {
+                                    arrayListID.get(i).setWeight(kg);
+                                }
                                 break;
                             case "온도":
+                                c1++;
                                 String c = objects.getJSONObject(k).getString("text");
-                                arrayListID.get(i).setTemperatureC(c);
-                                c = null;
+                                if (c1 >= 2) {
+                                    String c2 = c + "," + arrayListID.get(i).getTemperatureC();
+                                    arrayListID.get(i).setTemperatureC(c2);
+                                } else {
+                                    arrayListID.get(i).setTemperatureC(c);
+                                }
                                 break;
                             case "추천":
+                                offer1++;
                                 String offer = objects.getJSONObject(k).getString("text");
-                                arrayListID.get(i).setOffer(offer);
-                                offer = null;
+                                if (offer1 >= 2) {
+                                    String offer2 = offer + "," + arrayListID.get(i).getOffer();
+                                    arrayListID.get(i).setOffer(offer2);
+                                } else {
+                                    arrayListID.get(i).setOffer(offer);
+                                }
                                 break;
                             case "프로모션":
+                                km1++;
                                 String km = objects.getJSONObject(k).getString("text");
-                                arrayListID.get(i).setPromotion(km);
-                                km = null;
+                                if (km1 >= 2) {
+                                    String km2 = km + "," + arrayListID.get(i).getPromotion();
+                                    arrayListID.get(i).setPromotion(km2);
+                                } else {
+                                    arrayListID.get(i).setPromotion(km);
+                                }
                                 break;
                             case "매장/포장":
+                                st1++;
                                 String ship = objects.getJSONObject(k).getString("text");
-                                arrayListID.get(i).setCartShipper(ship);
-                                ship = null;
-                                break;
+                                if (st1 >= 2) {
+                                    String st2 = ship + "," + arrayListID.get(i).getCartShipper();
+                                    arrayListID.get(i).setCartShipper(st2);
+                                } else {
+                                    arrayListID.get(i).setCartShipper(ship);
+                                }
                             case "메뉴":
+                                food1++;
                                 String food = objects.getJSONObject(k).getString("text");
-                                arrayListID.get(i).setFood(food);
-                                food = null;
+                                if (food1 >= 2) {
+                                    String food2 = food + "," + arrayListID.get(i).getFood();
+                                    arrayListID.get(i).setFood(food2);
+                                } else {
+                                    arrayListID.get(i).setFood(food);
+                                }
                                 break;
                             case "맛":
+                                h1++;
                                 String h = objects.getJSONObject(k).getString("text");
-                                arrayListID.get(i).setSmell(h);
-                                h = null;
+                                if (h1 >= 2) {
+                                    String h2 = h + "," + arrayListID.get(i).getSmell();
+                                    arrayListID.get(i).setSmell(h2);
+                                } else {
+                                    arrayListID.get(i).setSmell(h);
+                                }
                                 break;
                             case "기타":
+                                other1++;
                                 String other = objects.getJSONObject(k).getString("text");
-                                arrayListID.get(i).setOther(other);
-                                other = null;
+                                if (other1 >= 2) {
+                                    String other2 = other + "," + arrayListID.get(i).getOther();
+                                    arrayListID.get(i).setOther(other2);
+                                } else {
+                                    arrayListID.get(i).setOther(other);
+                                }
                                 break;
                         }
                     }
                 }
-                arrays = null;
-                s = null;
             } else {
                 JSONArray objects = new JSONArray();
                 objectList.add(objects);
                 arrayListID.get(j).setStatus("no found");
-                objects = null;
-                System.out.println("AAAAAAAAAAAAAAA");
             }
         }
         readListID.writeExcel(arrayListID, excelFilePath);
-
     }
 
 
