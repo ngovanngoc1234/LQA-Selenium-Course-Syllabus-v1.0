@@ -15,6 +15,7 @@ import java.util.List;
 
 public class ReadListID implements Serializable {
     public static final int COLUMN_INDEX_ID = 0;
+    public static final int COLUMN_NAME_CLASS = 1;
 
 
     private static CellStyle cellStyleFormatNumber = null;
@@ -54,16 +55,6 @@ public class ReadListID implements Serializable {
         System.out.println("Done!!!");
     }
 
-    // Create dummy data
-    private static List<DataID> getBooks() {
-        List<DataID> ReadCSV = new ArrayList<>();
-        ReadCSV Read;
-        for (int i = 0; i < 15; i++) {
-
-        }
-        return ReadCSV;
-    }
-
     // Create workbook
     private static Workbook getWorkbook(String excelFilePath) throws IOException {
         Workbook workbook = null;
@@ -92,6 +83,10 @@ public class ReadListID implements Serializable {
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Id");
 
+        cell = row.createCell(COLUMN_NAME_CLASS);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("name class");
+
 
     }
 
@@ -111,6 +106,10 @@ public class ReadListID implements Serializable {
 
         Cell cell = row.createCell(COLUMN_INDEX_ID);
         cell.setCellValue(ReadCSV.getId());
+
+        cell = row.createCell(COLUMN_NAME_CLASS);
+        cell.setCellValue(ReadCSV.getNameClassBox());
+
 
     }
 

@@ -1,6 +1,9 @@
 package com.example.demoselenium.addFileCSV;
 
 
+import com.example.demoselenium.getAPI.ReadListID;
+import com.example.demoselenium.object.DataID;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
@@ -23,15 +26,15 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class MainCSV extends BaseTest implements Serializable {
-    WriteExcelExample writeExcel = new WriteExcelExample();
-    List<ReadCSV> readCSVArrayList = new ArrayList<>();
-    String excelFilePath = "C:\\Users\\LQA\\Desktop\\Output.xlsx";
+    ReadListID readListID = new ReadListID();
+    List<DataID> list = new ArrayList<>();
+    String excelFilePath = "C:\\Users\\phongdt\\Desktop\\result ex\\namclass id.xlsx";
 
 
     public String takeElementSnapShot(WebElement webElement, String idImage) throws Exception {
         //Create file path
         String screenshotName = idImage + ".png";
-        String screenshotPath = "C:\\Users\\LQA\\Desktop\\image\\" + screenshotName;
+        String screenshotPath = "C:\\Users\\phongdt\\Desktop\\image\\" + screenshotName;
 
         // Convert web driver object to TakeScreenshot
         TakesScreenshot scrShot = ((TakesScreenshot) webElement);
@@ -51,7 +54,7 @@ public class MainCSV extends BaseTest implements Serializable {
 
     @Test
     public void Test() throws Exception {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\LQA\\Desktop\\crack\\chromedriver.exe");
+        WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
@@ -83,12 +86,13 @@ public class MainCSV extends BaseTest implements Serializable {
         webDriver.switchTo().window(PopupHandle);
 //        list id
 
-        String image = "";
         int check = 0;
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
+            String namClass = "";
 
             List<WebElement> list_data = webDriver.findElements(By.xpath("/html/body/div/div/section/ul/li/div/ul/li/div/section/table/tbody/tr/td/button"));
             System.out.println("id = " + list_data.size());
+
             for (WebElement dataIdButton : list_data) {
 //                click vao ID
                 if (dataIdButton != null) {
@@ -100,25 +104,34 @@ public class MainCSV extends BaseTest implements Serializable {
                     webDriver.switchTo().frame(webDriver.findElement(By.xpath("//iframe[@title=\"monitor\"]")));
                     webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
                     webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[2]/div/div[1]/button")).click();
-                    Thread.sleep(1000);
-                    WebDriverWait wait = new WebDriverWait(webDriver, 30);
+                    Thread.sleep(500);
+//                    WebDriverWait wait = new WebDriverWait(webDriver, 30);
 //                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[1]/div[1]/div/div[2]/div[2]/div[2]/canvas[2]")));
                     WebElement webElement = webDriver
                             .findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[1]/div[1]/div/div[2]/div[2]/div[2]/canvas[2]"));
+                    WebElement webElement1 = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[3]/div/ul/li/form/section[1]/dl/dd/em/span"));
 
-                    if (webElement != null) {
-                        Thread.sleep(1200);
+                    if (webElement != null || webElement1 != null) {
+                        Thread.sleep(1700);
+                        namClass = webElement1.getText();
                         takeElementSnapShot(webElement, id);
+                    } else {
+                        namClass = "";
                     }
                     webDriver.switchTo().defaultContent();
 
 //                add vao list CSV
                     check++;
-                    if (check == 30) {
+                    if (check == 90) {
                         return;
                     }
+                    DataID dataID = new DataID(id, namClass);
+                    list.add(dataID);
+                    namClass = "";
+                    id = "";
                 }
             }
+
 
             clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tfoot/tr/td/ul/li[3]/button"));
             Thread.sleep(1000);
@@ -127,7 +140,7 @@ public class MainCSV extends BaseTest implements Serializable {
 
     @AfterMethod
     public void afterMethod() throws Exception {
-//        writeExcel.writeExcel(readCSVArrayList, excelFilePath);
+        readListID.writeExcel(list, excelFilePath);
         webDriver.close();
     }
 }
