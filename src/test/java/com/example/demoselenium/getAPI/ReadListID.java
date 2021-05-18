@@ -16,6 +16,8 @@ import java.util.List;
 public class ReadListID implements Serializable {
     public static final int COLUMN_INDEX_ID = 0;
     public static final int COLUMN_NAME_CLASS = 1;
+    public static final int COLUMN_STATUS = 2;
+    public static final int COLUMN_WORK_NAME = 3;
 
 
     private static CellStyle cellStyleFormatNumber = null;
@@ -87,6 +89,14 @@ public class ReadListID implements Serializable {
         cell.setCellStyle(cellStyle);
         cell.setCellValue("name class");
 
+        cell = row.createCell(COLUMN_STATUS);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("data status");
+
+        cell = row.createCell(COLUMN_WORK_NAME);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("work name");
+
 
     }
 
@@ -109,6 +119,12 @@ public class ReadListID implements Serializable {
 
         cell = row.createCell(COLUMN_NAME_CLASS);
         cell.setCellValue(ReadCSV.getNameClassBox());
+
+        cell = row.createCell(COLUMN_STATUS);
+        cell.setCellValue(ReadCSV.getDataStatus());
+
+        cell = row.createCell(COLUMN_WORK_NAME);
+        cell.setCellValue(ReadCSV.getWorkName());
 
 
     }

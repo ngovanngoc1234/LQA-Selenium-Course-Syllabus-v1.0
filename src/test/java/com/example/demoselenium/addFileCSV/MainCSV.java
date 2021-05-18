@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -56,7 +57,7 @@ public class MainCSV extends BaseTest implements Serializable {
     public void Test() throws Exception {
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         webDriver.manage().window().maximize();
         webDriver.get("https://client.crowdworks.kr/member/login");
 //        form đăng nhập
@@ -87,8 +88,12 @@ public class MainCSV extends BaseTest implements Serializable {
 //        list id
 
         int check = 0;
+        String dateStar = "2021-05-17";
+        String dateEnd = "2021-05-17";
         for (int i = 0; i < 1000; i++) {
             String namClass = "";
+            String status = "";
+            String workName = "";
 
             List<WebElement> list_data = webDriver.findElements(By.xpath("/html/body/div/div/section/ul/li/div/ul/li/div/section/table/tbody/tr/td/button"));
             System.out.println("id = " + list_data.size());
@@ -97,7 +102,19 @@ public class MainCSV extends BaseTest implements Serializable {
 //                click vao ID
                 if (dataIdButton != null) {
                     webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//                    chon ngay va work date
+                    WebElement webElement2 = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tbody/tr[2]/td/div/div[1]/div/select"));
+                    Select select = new Select(webElement2);
+                    select.selectByVisibleText("Submit work date");
+                    webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tbody/tr[2]/td/div/div[2]/div[1]/div/div/input")).sendKeys(dateStar);
+                    webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tbody/tr[2]/td/div/div[2]/div[2]/div/div/input")).sendKeys(dateEnd);
+                    webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tfoot/tr/td/div[2]/button")).click();
+                    Thread.sleep(1000);
+
+//                    lay id
                     String id = dataIdButton.getText();
+                    status = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tbody/tr/td[2]")).getText();
+                    workName = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tbody/tr/td[3]")).getText();
                     dataIdButton.click();
                     webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 //                chuyển iframe
@@ -109,7 +126,7 @@ public class MainCSV extends BaseTest implements Serializable {
 //                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[1]/div[1]/div/div[2]/div[2]/div[2]/canvas[2]")));
                     WebElement webElement = webDriver
                             .findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[1]/div[1]/div/div[2]/div[2]/div[2]/canvas[2]"));
-                    WebElement webElement1 = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[3]/div/ul/li/form/section[1]/dl/dd/em/span"));
+                    WebElement webElement1 = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[3]/div/ul/li/form/section[1]/dl/dd"));
 
                     if (webElement != null || webElement1 != null) {
                         Thread.sleep(1700);
@@ -125,13 +142,14 @@ public class MainCSV extends BaseTest implements Serializable {
                     if (check == 90) {
                         return;
                     }
-                    DataID dataID = new DataID(id, namClass);
+                    DataID dataID = new DataID(id, namClass,status,workName);
                     list.add(dataID);
                     namClass = "";
                     id = "";
+                    status = "";
+                    workName = "";
                 }
             }
-
 
             clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tfoot/tr/td/ul/li[3]/button"));
             Thread.sleep(1000);
