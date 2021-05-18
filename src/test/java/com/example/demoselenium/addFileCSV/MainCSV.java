@@ -123,10 +123,6 @@ public class MainCSV extends BaseTest implements Serializable {
             clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tfoot/tr/td/ul/li[3]/button"));
             Thread.sleep(1000);
         }
-//        extentTest = extentReport.createTest("check timeOut");
-//        extentTest.info("good ok");
-//        extentTest.pass("PASS");
-//        extentReport.flush();
     }
 
     @AfterMethod
