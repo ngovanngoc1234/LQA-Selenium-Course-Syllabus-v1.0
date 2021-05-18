@@ -45,8 +45,7 @@ public class Login_tool implements Serializable {
     String status = "";
     String id = "";
     String workerName = "";
-
-
+    String image = "";
     int nameProject = 7600;
     int record = 10;
 
@@ -65,13 +64,12 @@ public class Login_tool implements Serializable {
                 .post();
 
         String tokens = response.jsonPath().get("token");
-        System.out.println("token = " + tokens);
         this.token.setToken(tokens);
 
     }
 
     @Test(priority = 2)
-    public void getDataID() throws IOException, InterruptedException {
+    public void getDataID() {
         int count = 0;
         ObjectMapper mapper = new ObjectMapper();
         RestAssured.baseURI = "https://coapi.crowdworks.kr";
@@ -96,22 +94,39 @@ public class Login_tool implements Serializable {
                 System.out.println(id);
                 status = c.getDataStatusLocalName();
                 System.out.println(count++);
-                ReadCSV readCSV = new ReadCSV(id, examples, food, size, quantity, weight, temperatureC, smell, constitutive, offer, promotion, cartShipper, other, status, workerName);
+                workerName = c.getWorkerNickname();
+                ReadCSV readCSV = new ReadCSV(id, examples, food, size, quantity, weight, temperatureC, smell, constitutive, offer, promotion, cartShipper, other, status, workerName,image);
                 arrayListID.add(readCSV);
                 id = null;
                 status = null;
+                workerName = null;
             }
         }
     }
 
+    @Test
+    public void api() throws UnirestException {
+        HttpResponse<String> response = Unirest.get("https://api-finfo.vndirect.com.vn/v4/stocks?q=type:IFC,ETF,STOCK~status:LISTED&fields=code,companyName,companyNameEng,shortName,floor,industryName&size=3000").asString();
+        String source = response.getBody();
+        JSONObject array = new JSONObject(source);
+        JSONArray array1 = array.getJSONArray("data");
+        for (int i = 0; i < array1.length(); i++) {
+            System.out.println(array1.getJSONObject(i).getString("code"));
+            System.out.println(array1.getJSONObject(i).getString("companyName"));
+            System.out.println(array1.getJSONObject(i).getString("floor"));
+            System.out.println(array1.getJSONObject(i).getString("companyNameEng"));
+        }
+    }
 
     @Test(priority = 3)
     public void GetURL() {
         RestAssured.baseURI = "https://coapi.crowdworks.kr";
+
+
         String sourceApiUrl = "";
         String resultApiUrl = "";
-        for (int i = 0; i < arrayListID.size(); i++) {
-            RestAssured.basePath = "/project/" + nameProject + "/output/" + arrayListID.get(i).getID();
+        for (ReadCSV readCSV : arrayListID) {
+            RestAssured.basePath = "/project/" + nameProject + "/output/" + readCSV.getID();
             Response response = RestAssured.given().log().all()
                     .header("Authorization", "Bearer" + token.getToken())
                     .header("X-AUTH-TOKEN", token.getToken())
@@ -126,13 +141,15 @@ public class Login_tool implements Serializable {
             System.out.println("result" + resultApiUrl);
             SourceAndResult andResult = new SourceAndResult(sourceApiUrl, resultApiUrl);
             sourceAndResults.add(andResult);
+            sourceApiUrl = null;
+            resultApiUrl = null;
         }
     }
 
     int p = 0;
 
     @Test(priority = 4)
-    public void Get_sourceApiUrl() throws UnirestException, IOException {
+    public void Get_sourceApiUrl() throws UnirestException {
         Unirest.setTimeouts(0, 0);
         for (int i = 0; i < sourceAndResults.size(); i++) {
             HttpResponse<String> response = Unirest.get(sourceAndResults.get(i).getSource()).asString();
@@ -146,13 +163,12 @@ public class Login_tool implements Serializable {
         }
     }
 
-
     List<JSONArray> objectList = new ArrayList<>();
 
     @Test(priority = 5)
     public void Get_resultApiUrl() throws UnirestException, IOException {
         Unirest.setTimeouts(0, 0);
-        for (int j = 0; j < sourceAndResults.size(); j++) {
+        for (int j = sourceAndResults.size() - 1; j >= 0; j--) {
             String value = sourceAndResults.get(j).getResult();
             if (value != null) {
                 HttpResponse<String> response = Unirest.get(value).asString();
@@ -162,9 +178,6 @@ public class Login_tool implements Serializable {
                 JSONArray arrays = jsonObject
                         .getJSONArray("results")
                         .getJSONArray(1).getJSONObject(0).getJSONArray("name_2WV7BM");
-
-                String jo = jsonObject.getJSONObject("works").getString("workerName");
-                arrayListID.get(j).setWorkerName(jo);
 
                 if (arrays.length() == 0) {
                     arrayListID.get(j).setStatus("non-workable");
@@ -176,7 +189,7 @@ public class Login_tool implements Serializable {
                 System.out.println(" length arr " + arrays.length());
                 objectList.add(arrays);
 
-                for (int i = 0; i < objectList.size(); i++) {
+                for (int i = objectList.size() - 1; i >= 0; i--) {
                     JSONArray objects = objectList.get(i);
                     int food1 = 0;
                     int size1 = 0;
@@ -196,7 +209,7 @@ public class Login_tool implements Serializable {
                                 size1++;
                                 String size = objects.getJSONObject(k).getString("text");
                                 if (size1 >= 2) {
-                                    String size2 = size + "," + arrayListID.get(i).getSize();
+                                    String size2 = size + ";" + arrayListID.get(i).getSize();
                                     arrayListID.get(i).setSize(size2);
                                 } else {
                                     arrayListID.get(i).setSize(size);
@@ -206,7 +219,7 @@ public class Login_tool implements Serializable {
                                 ct1++;
                                 String ct = objects.getJSONObject(k).getString("text");
                                 if (ct1 >= 2) {
-                                    String ct2 = ct + "," + arrayListID.get(i).getConstitutive();
+                                    String ct2 = ct + ";" + arrayListID.get(i).getConstitutive();
                                     arrayListID.get(i).setConstitutive(ct2);
                                 } else {
                                     arrayListID.get(i).setConstitutive(ct);
@@ -216,7 +229,7 @@ public class Login_tool implements Serializable {
                                 sl1++;
                                 String sl = objects.getJSONObject(k).getString("text");
                                 if (sl1 >= 2) {
-                                    String sl2 = sl + "," + arrayListID.get(i).getQuantity();
+                                    String sl2 = sl + ";" + arrayListID.get(i).getQuantity();
                                     arrayListID.get(i).setQuantity(sl2);
                                 } else {
                                     arrayListID.get(i).setQuantity(sl);
@@ -226,7 +239,7 @@ public class Login_tool implements Serializable {
                                 kg1++;
                                 String kg = objects.getJSONObject(k).getString("text");
                                 if (kg1 >= 2) {
-                                    String kg2 = kg + "," + arrayListID.get(i).getWeight();
+                                    String kg2 = kg + ";" + arrayListID.get(i).getWeight();
                                     arrayListID.get(i).setWeight(kg2);
                                 } else {
                                     arrayListID.get(i).setWeight(kg);
@@ -236,7 +249,7 @@ public class Login_tool implements Serializable {
                                 c1++;
                                 String c = objects.getJSONObject(k).getString("text");
                                 if (c1 >= 2) {
-                                    String c2 = c + "," + arrayListID.get(i).getTemperatureC();
+                                    String c2 = c + ";" + arrayListID.get(i).getTemperatureC();
                                     arrayListID.get(i).setTemperatureC(c2);
                                 } else {
                                     arrayListID.get(i).setTemperatureC(c);
@@ -246,7 +259,7 @@ public class Login_tool implements Serializable {
                                 offer1++;
                                 String offer = objects.getJSONObject(k).getString("text");
                                 if (offer1 >= 2) {
-                                    String offer2 = offer + "," + arrayListID.get(i).getOffer();
+                                    String offer2 = offer + ";" + arrayListID.get(i).getOffer();
                                     arrayListID.get(i).setOffer(offer2);
                                 } else {
                                     arrayListID.get(i).setOffer(offer);
@@ -256,7 +269,7 @@ public class Login_tool implements Serializable {
                                 km1++;
                                 String km = objects.getJSONObject(k).getString("text");
                                 if (km1 >= 2) {
-                                    String km2 = km + "," + arrayListID.get(i).getPromotion();
+                                    String km2 = km + ";" + arrayListID.get(i).getPromotion();
                                     arrayListID.get(i).setPromotion(km2);
                                 } else {
                                     arrayListID.get(i).setPromotion(km);
@@ -266,7 +279,7 @@ public class Login_tool implements Serializable {
                                 st1++;
                                 String ship = objects.getJSONObject(k).getString("text");
                                 if (st1 >= 2) {
-                                    String st2 = ship + "," + arrayListID.get(i).getCartShipper();
+                                    String st2 = ship + ";" + arrayListID.get(i).getCartShipper();
                                     arrayListID.get(i).setCartShipper(st2);
                                 } else {
                                     arrayListID.get(i).setCartShipper(ship);
@@ -275,7 +288,7 @@ public class Login_tool implements Serializable {
                                 food1++;
                                 String food = objects.getJSONObject(k).getString("text");
                                 if (food1 >= 2) {
-                                    String food2 = food + "," + arrayListID.get(i).getFood();
+                                    String food2 = food + ";" + arrayListID.get(i).getFood();
                                     arrayListID.get(i).setFood(food2);
                                 } else {
                                     arrayListID.get(i).setFood(food);
@@ -285,7 +298,7 @@ public class Login_tool implements Serializable {
                                 h1++;
                                 String h = objects.getJSONObject(k).getString("text");
                                 if (h1 >= 2) {
-                                    String h2 = h + "," + arrayListID.get(i).getSmell();
+                                    String h2 = h + ";" + arrayListID.get(i).getSmell();
                                     arrayListID.get(i).setSmell(h2);
                                 } else {
                                     arrayListID.get(i).setSmell(h);
@@ -295,7 +308,7 @@ public class Login_tool implements Serializable {
                                 other1++;
                                 String other = objects.getJSONObject(k).getString("text");
                                 if (other1 >= 2) {
-                                    String other2 = other + "," + arrayListID.get(i).getOther();
+                                    String other2 = other + ";" + arrayListID.get(i).getOther();
                                     arrayListID.get(i).setOther(other2);
                                 } else {
                                     arrayListID.get(i).setOther(other);

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+        .btn-pay{
+            padding: 1rem 5rem;
+        }
+    </style>
+</head>
+<body>
+<h4 class="text-center my-5">Our Payment Request API Demo</h4>
+
+<div class="container d-flex justify-content-center align-items-center my-5">
+    <button class="btn-pay btn btn-primary btn-lg" id="pay">
+        Checkout
+    </button>
+</div>
+
+
+<script>
+    const supportedPaymentMethods = [
+        {
+            supportedMethods: "basic-card",
+            data: {
+                supportedNetworks: ["visa", "mastercard"],
+                supportedTypes: ["debit", "credit"],
+            },
+        },
+    ];
+
+    const shoppingCart = {
+        id: "order-01",
+        displayItems: [
+            {
+                label: "Nike Sneakers",
+                amount: { currency: "USD", value: "800.00" },
+            },
+            {
+                label: "Hoodie",
+                amount: { currency: "USD", value: "550.00" },
+            },
+            {
+                label: "Wrist Watch",
+                amount: { currency: "USD", value: "400.00" },
+            },
+        ],
+        total: {
+            label: "Total",
+            amount: { currency: "USD", value: "1750.00" },
+        },
+    };
+
+    function completePayment() {
+        var request = new PaymentRequest(supportedPaymentMethods, shoppingCart);
+
+        request.canMakePayment().then(function (result) {
+            if (result) {
+                // Real payment request
+                request.show().then(function (paymentResponse) {
+                    // Here we would process the payment.
+                    paymentResponse
+                        .complete("success")
+                        .then(function (paymentData) {
+                            console.log(paymentData);
+                            alert("Your Payment was successful");
+                        })
+                        .catch(function (err) {
+                            alert("Error making payment");
+                            console.error(err);
+                        });
+                });
+            } else {
+                request
+                    .abort()
+                    .then((res) => {
+                        alert("Payment has been aborted");
+                    })
+                    .catch((error) => alert("Payment  error: " + error));
+            }
+        });
+    }
+
+    document.getElementById("pay").addEventListener("click", completePayment);
+</script>
+</body>
+</html>
