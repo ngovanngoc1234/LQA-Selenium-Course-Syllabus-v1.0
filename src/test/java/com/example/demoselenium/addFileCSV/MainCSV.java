@@ -5,12 +5,10 @@ import com.example.demoselenium.getAPI.ReadListID;
 import com.example.demoselenium.object.DataID;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -67,7 +65,7 @@ public class MainCSV extends BaseTest implements Serializable {
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 //        go to project
         clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section[2]/ul/li/div/section/div/ul/li/div/div"));
-        clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section[2]/ul/li[2]/div/div[2]/div/table/tbody/tr[2]/td[2]/div/div[1]/button"));
+        clickMethod(By.xpath("(//*[@data-project-id=\"7723\"])[1]"));
 //        click project
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section[1]/ul/li/div/section[2]/div[1]/div/div[2]/ul/li[11]/button"));
@@ -85,36 +83,54 @@ public class MainCSV extends BaseTest implements Serializable {
         }
 // Switch back to original browser (first window)
         webDriver.switchTo().window(PopupHandle);
-//        list id
+
+
+        String startDate = "2021-05-17";
+        String endDate = "2021-05-17";
+
+//        select Search period
+        WebElement searchPeriodElt = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tbody/tr[2]/td/div/div[1]/div/select"));
+        Select select = new Select(searchPeriodElt);
+        select.selectByVisibleText("Submit work date");
+
+        // Start date
+        WebElement startDateElt = webDriver.findElement(By.xpath("(//*[@placeholder=\"YYYY-MM-DD\"])[1]"));
+
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].removeAttribute('readonly','readonly')", startDateElt);
+        new Actions(webDriver).click(startDateElt).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(startDate).perform();
+        // end date
+        WebElement endDateElt = webDriver.findElement(By.xpath("(//*[@placeholder=\"YYYY-MM-DD\"])[2]"));
+
+        ((JavascriptExecutor) webDriver).executeScript("arguments[0].removeAttribute('readonly','readonly')", endDateElt);
+        new Actions(webDriver).click(endDateElt).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(endDate).perform();
+        // click Search
+        webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div")).click();
+        webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tfoot/tr/td/div[2]/button")).click();
+        Thread.sleep(1000);
+
 
         int check = 0;
-        String dateStar = "2021-05-17";
-        String dateEnd = "2021-05-17";
+
         for (int i = 0; i < 1000; i++) {
             String namClass = "";
             String status = "";
             String workName = "";
 
             List<WebElement> list_data = webDriver.findElements(By.xpath("/html/body/div/div/section/ul/li/div/ul/li/div/section/table/tbody/tr/td/button"));
+            List<WebElement> listStatus = webDriver.findElements(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tbody/tr/td[2]"));
+            List<WebElement> listWorkName = webDriver.findElements(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tbody/tr/td[3]"));
             System.out.println("id = " + list_data.size());
 
-            for (WebElement dataIdButton : list_data) {
+            for (int j = 0, list_dataSize = list_data.size(); j < list_dataSize; j++) {
+                WebElement dataIdButton = list_data.get(j);
 //                click vao ID
                 if (dataIdButton != null) {
                     webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//                    chon ngay va work date
-                    WebElement webElement2 = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tbody/tr[2]/td/div/div[1]/div/select"));
-                    Select select = new Select(webElement2);
-                    select.selectByVisibleText("Submit work date");
-                    webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tbody/tr[2]/td/div/div[2]/div[1]/div/div/input")).sendKeys(dateStar);
-                    webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tbody/tr[2]/td/div/div[2]/div[2]/div/div/input")).sendKeys(dateEnd);
-                    webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tfoot/tr/td/div[2]/button")).click();
-                    Thread.sleep(1000);
 
 //                    lay id
                     String id = dataIdButton.getText();
-                    status = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tbody/tr/td[2]")).getText();
-                    workName = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tbody/tr/td[3]")).getText();
+                    status = listStatus.get(j).getText();
+                    workName = listWorkName.get(j).getText();
                     dataIdButton.click();
                     webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 //                chuyển iframe
@@ -124,14 +140,14 @@ public class MainCSV extends BaseTest implements Serializable {
                     Thread.sleep(500);
 //                    WebDriverWait wait = new WebDriverWait(webDriver, 30);
 //                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[1]/div[1]/div/div[2]/div[2]/div[2]/canvas[2]")));
-                    WebElement webElement = webDriver
+                    WebElement imageBox = webDriver
                             .findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[1]/div[1]/div/div[2]/div[2]/div[2]/canvas[2]"));
-                    WebElement webElement1 = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[3]/div/ul/li/form/section[1]/dl/dd"));
+                    WebElement statusClass = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[3]/div/ul/li/form/section[1]/dl/dd"));
 
-                    if (webElement != null || webElement1 != null) {
+                    if (imageBox != null || statusClass != null) {
                         Thread.sleep(1700);
-                        namClass = webElement1.getText();
-                        takeElementSnapShot(webElement, id);
+                        namClass = statusClass.getText();
+                        takeElementSnapShot(imageBox, id);
                     } else {
                         namClass = "";
                     }
@@ -142,7 +158,7 @@ public class MainCSV extends BaseTest implements Serializable {
                     if (check == 90) {
                         return;
                     }
-                    DataID dataID = new DataID(id, namClass,status,workName);
+                    DataID dataID = new DataID(id, namClass, status, workName);
                     list.add(dataID);
                     namClass = "";
                     id = "";
@@ -159,6 +175,7 @@ public class MainCSV extends BaseTest implements Serializable {
     @AfterMethod
     public void afterMethod() throws Exception {
         readListID.writeExcel(list, excelFilePath);
+
         webDriver.close();
     }
 }
