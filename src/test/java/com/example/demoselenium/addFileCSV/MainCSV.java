@@ -59,17 +59,17 @@ public class MainCSV extends BaseTest implements Serializable {
         webDriver.manage().window().maximize();
         webDriver.get("https://client.crowdworks.kr/member/login");
 //        form đăng nhập
-        sendKeyMethod(By.xpath("//*[@id=\"root\"]/div[1]/section[1]/div[2]/div[2]/form/ul/li[1]/div/ul/li[1]/input"), "tien.vu@lqa.com.vn");
-        sendKeyMethod(By.xpath("//*[@id=\"root\"]/div[1]/section[1]/div[2]/div[2]/form/ul/li[2]/div/ul/li[1]/input"), "NVgde2ZSMTW4swB");
-        clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section[1]/div[2]/div[2]/form/ul/li[3]/div/button"));
+        sendKeyMethod(By.xpath("//*[@name=\"email\"]"), "tien.vu@lqa.com.vn");
+        sendKeyMethod(By.xpath("//*[@name=\"password\"]"), "NVgde2ZSMTW4swB");
+        clickMethod(By.xpath("//*[@data-group-id=\"423\"]"));
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 //        go to project
-        clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section[2]/ul/li/div/section/div/ul/li/div/div"));
+        clickMethod(By.xpath("//*[@data-group-id=\"423\"]"));
         clickMethod(By.xpath("(//*[@data-project-id=\"7723\"])[1]"));
 //        click project
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section[1]/ul/li/div/section[2]/div[1]/div/div[2]/ul/li[11]/button"));
-        clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section[1]/ul/li/div/section[2]/div[2]/div/table[1]/thead/tr[1]/td/div[1]/button"));
+        clickMethod(By.xpath("//*[@data-index=\"5\"]"));
+        clickMethod(By.xpath("(//*[@class=\"css-jf130o\"])[1]"));
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         String winHandleBefore = webDriver.getWindowHandle();
@@ -89,7 +89,7 @@ public class MainCSV extends BaseTest implements Serializable {
         String endDate = "2021-05-17";
 
 //        select Search period
-        WebElement searchPeriodElt = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tbody/tr[2]/td/div/div[1]/div/select"));
+        WebElement searchPeriodElt = webDriver.findElement(By.xpath("//*[@name=\"rangingField\"]"));
         Select select = new Select(searchPeriodElt);
         select.selectByVisibleText("Submit work date");
 
@@ -104,8 +104,8 @@ public class MainCSV extends BaseTest implements Serializable {
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].removeAttribute('readonly','readonly')", endDateElt);
         new Actions(webDriver).click(endDateElt).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(endDate).perform();
         // click Search
-        webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div")).click();
-        webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[1]/form/table/tfoot/tr/td/div[2]/button")).click();
+        webDriver.findElement(By.xpath("//*[@class=\"project-monitor-board css-486dx3\"]")).click();
+        webDriver.findElement(By.xpath("//*[@class=\"css-1ypq19w\"]")).click();
         Thread.sleep(1000);
 
 
@@ -136,13 +136,12 @@ public class MainCSV extends BaseTest implements Serializable {
 //                chuyển iframe
                     webDriver.switchTo().frame(webDriver.findElement(By.xpath("//iframe[@title=\"monitor\"]")));
                     webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-                    webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[2]/div/div[1]/button")).click();
+                    webDriver.findElement(By.xpath("(//*[@class=\"css-1s93314\"])[2]")).click();
                     Thread.sleep(500);
-//                    WebDriverWait wait = new WebDriverWait(webDriver, 30);
-//                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[1]/div[1]/div/div[2]/div[2]/div[2]/canvas[2]")));
+//                    chup hinh
                     WebElement imageBox = webDriver
-                            .findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[1]/div[1]/div/div[2]/div[2]/div[2]/canvas[2]"));
-                    WebElement statusClass = webDriver.findElement(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/section[2]/ul/li[1]/div[2]/div/section/div[1]/ul/li[3]/div/ul/li/form/section[1]/dl/dd"));
+                            .findElement(By.xpath("//*[@class=\"upper-canvas fabric-canvas\"]"));
+                    WebElement statusClass = webDriver.findElement(By.xpath("//*[@class=\"tag-label css-11y9bag\"]"));
 
                     if (imageBox != null || statusClass != null) {
                         Thread.sleep(1700);
@@ -167,7 +166,7 @@ public class MainCSV extends BaseTest implements Serializable {
                 }
             }
 
-            clickMethod(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tfoot/tr/td/ul/li[3]/button"));
+            clickMethod(By.xpath("(//*[@type=\"button\"])[34]"));
             Thread.sleep(1000);
         }
     }
