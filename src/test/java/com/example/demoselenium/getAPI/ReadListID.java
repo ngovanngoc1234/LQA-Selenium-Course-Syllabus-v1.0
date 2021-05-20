@@ -18,6 +18,8 @@ public class ReadListID implements Serializable {
     public static final int COLUMN_NAME_CLASS = 1;
     public static final int COLUMN_STATUS = 2;
     public static final int COLUMN_WORK_NAME = 3;
+    public static final int COLUMN_LANDMARK = 4;
+
 
 
     private static CellStyle cellStyleFormatNumber = null;
@@ -97,6 +99,10 @@ public class ReadListID implements Serializable {
         cell.setCellStyle(cellStyle);
         cell.setCellValue("work name");
 
+        cell = row.createCell(COLUMN_LANDMARK);
+        cell.setCellStyle(cellStyle);
+        cell.setCellValue("landmark");
+
 
     }
 
@@ -125,6 +131,10 @@ public class ReadListID implements Serializable {
 
         cell = row.createCell(COLUMN_WORK_NAME);
         cell.setCellValue(ReadCSV.getWorkName());
+
+        cell = row.createCell(COLUMN_LANDMARK);
+        cell.setCellValue(ReadCSV.getLandmark());
+
 
 
     }

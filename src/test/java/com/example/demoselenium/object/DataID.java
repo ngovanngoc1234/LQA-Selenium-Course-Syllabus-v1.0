@@ -7,16 +7,26 @@ public class DataID implements Serializable {
     String nameClassBox;
     String dataStatus;
     String workName;
+    String landmark;
 
 
     public DataID() {
     }
 
-    public DataID(String id,String nameClassBox, String dataStatus,String workName) {
+    public DataID(String id,String nameClassBox, String dataStatus,String workName,String landmark) {
         this.id = id;
         this.nameClassBox = nameClassBox;
         this.dataStatus = dataStatus;
         this.workName = workName;
+        this.landmark = landmark;
+    }
+
+    public String getLandmark() {
+        return landmark;
+    }
+
+    public void setLandmark(String landmark) {
+        this.landmark = landmark;
     }
 
     public String getWorkName() {
