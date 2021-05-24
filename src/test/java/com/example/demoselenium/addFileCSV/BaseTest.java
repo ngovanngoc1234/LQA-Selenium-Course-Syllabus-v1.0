@@ -27,6 +27,15 @@ public class BaseTest implements Serializable {
         webDriver.findElement(by).clear();
     }
 
+
+    public boolean isElementPresent(By by) {
+        try {
+            webDriver.findElement(by);
+            return true;
+        } catch (Exception e) {
+            return false ;
+        }
+    }
 //    @BeforeMethod
 //    public void beforeMethod() {
 //        webDriver = new ChromeDriver();
