@@ -28,14 +28,14 @@ public class MainCSV extends BaseTest implements Serializable {
     ReadListID readListID = new ReadListID();
     List<DataID> list = new ArrayList<>();
     //    link file ex to pc
-    String excelFilePath = "C:\\Users\\phongdt\\Desktop\\CRW\\Excel\\05202021l32.xlsx";
+    String excelFilePath = "D:\\CRW\\Excel\\05212021l46.xlsx";
 
 
     public String takeElementSnapShot(WebElement webElement, String idImage) throws Exception {
         //Create file path
         String screenshotName = idImage + ".png";
 //        link chua image to pc
-        String screenshotPath = "C:\\Users\\phongdt\\Desktop\\CRW\\Images\\05202021\\L32\\" + screenshotName;
+        String screenshotPath = "D:\\CRW\\Images\\05212021\\L46\\" + screenshotName;
 
         // Convert web driver object to TakeScreenshot
         TakesScreenshot scrShot = ((TakesScreenshot) webElement);
@@ -69,7 +69,6 @@ public class MainCSV extends BaseTest implements Serializable {
         clickMethod(By.xpath("//*[@data-group-id=\"423\"]"));
         clickMethod(By.xpath("(//*[@data-project-id=\"7723\"])[1]"));
 //        click project
-
         clickMethod(By.xpath("//*[@data-index=\"5\"]"));
         clickMethod(By.xpath("(//*[@class=\"css-jf130o\"])[1]"));
 
@@ -87,9 +86,10 @@ public class MainCSV extends BaseTest implements Serializable {
         webDriver.switchTo().window(PopupHandle);
 
 
-        String startDate = "2021-05-20";
-        String endDate = "2021-05-20";
+        String startDate = "2021-05-21";
+        String endDate = "2021-05-21";
         int result = 200;
+        int record = 451 ;
 
 //        select Search period
         WebElement searchPeriodElt = webDriver.findElement(By.xpath("//*[@name=\"rangingField\"]"));
@@ -106,12 +106,18 @@ public class MainCSV extends BaseTest implements Serializable {
 
         ((JavascriptExecutor) webDriver).executeScript("arguments[0].removeAttribute('readonly','readonly')", endDateElt);
         new Actions(webDriver).click(endDateElt).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(endDate).perform();
+        By clickButton = By.xpath("(//*[@type=\"button\"])[34]");
+
         // click Search
         webDriver.findElement(By.xpath("//*[@class=\"project-monitor-board css-486dx3\"]")).click();
         webDriver.findElement(By.xpath("//*[@class=\"css-1ypq19w\"]")).click();
+        Thread.sleep(2000);
+        if (isElementPresent(clickButton)) {
+            for (int i = 1; i < record; i++) {
+                clickMethod(By.xpath("(//*[@type=\"button\"])[34]"));
+            }
+        }
         Thread.sleep(60000);
-
-
         By byStatus = By.xpath("//*[@class=\"sample\"]/dd/em");
         By getLandmark = By.xpath("//*[@class=\"content-group  css-1rw3nf5\"]//li[2]/div/p");
         By byIframe = By.xpath("//iframe[@title=\"monitor\"]");
@@ -192,6 +198,9 @@ public class MainCSV extends BaseTest implements Serializable {
                         }
                     } catch (Exception e) {
                         System.out.println("lag");
+                        DataID dataID = new DataID(id, namClass, status, workName, landmark);
+                        list.add(dataID);
+                        webDriver.switchTo().defaultContent();
                     }
                 }
                 clickMethod(By.xpath("(//*[@type=\"button\"])[34]"));
