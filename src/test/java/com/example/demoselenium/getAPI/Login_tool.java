@@ -30,22 +30,7 @@ public class Login_tool implements Serializable {
     Account account = new Account();
     com.example.demoselenium.object.Token token = new Token();
 
-    String examples = "";
-    String food = "";
-    String size = "";
-    String quantity = "";
-    String weight = "";
-    String temperatureC = "";
-    String smell = "";
-    String constitutive = "";
-    String offer = "";
-    String promotion = "";
-    String cartShipper = "";
-    String other = "";
-    String status = "";
-    String id = "";
-    String workerName = "";
-    String image = "";
+
     int nameProject = 7600;
     int record = 10;
 
@@ -70,6 +55,22 @@ public class Login_tool implements Serializable {
 
     @Test(priority = 2)
     public void getDataID() {
+        String examples = "";
+        String food = "";
+        String size = "";
+        String quantity = "";
+        String weight = "";
+        String temperatureC = "";
+        String smell = "";
+        String constitutive = "";
+        String offer = "";
+        String promotion = "";
+        String cartShipper = "";
+        String other = "";
+        String status = "";
+        String id = "";
+        String workerName = "";
+        String image = "";
         int count = 0;
         ObjectMapper mapper = new ObjectMapper();
         RestAssured.baseURI = "https://coapi.crowdworks.kr";
@@ -95,7 +96,9 @@ public class Login_tool implements Serializable {
                 status = c.getDataStatusLocalName();
                 System.out.println(count++);
                 workerName = c.getWorkerNickname();
-                ReadCSV readCSV = new ReadCSV(id, examples, food, size, quantity, weight, temperatureC, smell, constitutive, offer, promotion, cartShipper, other, status, workerName,image);
+                ReadCSV readCSV = new ReadCSV(id, examples, food, size,
+                        quantity, weight, temperatureC, smell, constitutive,
+                        offer, promotion, cartShipper, other, status, workerName, image);
                 arrayListID.add(readCSV);
                 id = null;
                 status = null;
