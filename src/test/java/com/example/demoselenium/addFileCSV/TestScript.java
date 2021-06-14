@@ -50,7 +50,6 @@ public class TestScript extends BaseTest {
             } else {
                 return;
             }
-//            Thread.sleep(1000);
         }
     }
 }

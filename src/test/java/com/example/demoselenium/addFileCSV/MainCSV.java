@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainCSV extends BaseTest implements Serializable {
     ReadListID readListID = new ReadListID();
-    List<DataID> list = new ArrayList<>();
+    List<DataID> listDataSources = new ArrayList<>();
     //    link file ex to pc
     String excelFilePath = "D:\\CRW\\Excel\\05212021l46.xlsx";
 
@@ -128,14 +128,13 @@ public class MainCSV extends BaseTest implements Serializable {
                 String workName = "";
                 String landmark = "";
                 String id = "";
-                List<WebElement> list_data = webDriver.findElements(By.xpath("//*[@data-id]"));
+                List<WebElement> listData = webDriver.findElements(By.xpath("//*[@data-id]"));
                 List<WebElement> listStatus = webDriver.findElements(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tbody/tr/td[2]"));
                 List<WebElement> listWorkName = webDriver.findElements(By.xpath("//*[@id=\"root\"]/div[1]/section/ul/li/div/ul/li[3]/div/section[2]/table/tbody/tr/td[3]"));
-                System.out.println("id = " + list_data.size());
-
-                for (int j = 0, list_dataSize = list_data.size(); j < list_dataSize; j++) {
+                System.out.println("id = " + listData.size());
+                for (int j = 0, list_dataSize = listData.size(); j < list_dataSize; j++) {
                     try {
-                        WebElement dataIdButton = list_data.get(j);
+                        WebElement dataIdButton = listData.get(j);
 //                click vao ID
 //                    lay id
                         id = dataIdButton.getText();
@@ -146,7 +145,6 @@ public class MainCSV extends BaseTest implements Serializable {
                         if (isElementPresent(byIframe)) {
                             WebElement forIframe = new WebDriverWait(webDriver, 10)
                                     .until(ExpectedConditions.elementToBeClickable(By.xpath("//iframe[@title=\"monitor\"]")));
-
                             webDriver.switchTo().frame(forIframe);
 //                    get text landmark
                             WebElement clickZoom = new WebDriverWait(webDriver, 10)
@@ -168,7 +166,7 @@ public class MainCSV extends BaseTest implements Serializable {
                                     webDriver.switchTo().defaultContent();
 //                add vao list CSV
                                     DataID dataID = new DataID(id, namClass, status, workName, landmark);
-                                    list.add(dataID);
+                                    listDataSources.add(dataID);
                                     namClass = "";
                                     id = "";
                                     status = "";
@@ -181,23 +179,23 @@ public class MainCSV extends BaseTest implements Serializable {
                                     }
                                 } else {
                                     DataID dataID = new DataID(id, namClass, status, workName, landmark);
-                                    list.add(dataID);
+                                    listDataSources.add(dataID);
                                     webDriver.switchTo().defaultContent();
                                 }
                             } else {
                                 DataID dataID = new DataID(id, namClass, status, workName, landmark);
-                                list.add(dataID);
+                                listDataSources.add(dataID);
                                 webDriver.switchTo().defaultContent();
                             }
                         } else {
                             DataID dataID = new DataID(id, namClass, status, workName, landmark);
-                            list.add(dataID);
+                            listDataSources.add(dataID);
                             webDriver.switchTo().defaultContent();
                         }
                     } catch (Exception e) {
                         System.out.println("lag");
                         DataID dataID = new DataID(id, namClass, status, workName, landmark);
-                        list.add(dataID);
+                        listDataSources.add(dataID);
                         webDriver.switchTo().defaultContent();
                     }
                 }
@@ -211,7 +209,7 @@ public class MainCSV extends BaseTest implements Serializable {
 
     @AfterMethod
     public void afterMethod() throws Exception {
-        readListID.writeExcel(list, excelFilePath);
+        readListID.writeExcel(listDataSources, excelFilePath);
 
         webDriver.close();
     }
