@@ -145,7 +145,7 @@ public class WriteExcelExample implements Serializable {
         cell = row.createCell(COLUMN_INDEX_STATUS);
         cell.setCellStyle(cellStyle);
         cell.setCellValue("Status Non_workable");
-//        COLUMN_INDEX_WORKER_NAME
+
         cell = row.createCell(COLUMN_INDEX_WORKER_NAME);
         cell.setCellStyle(cellStyle);
         cell.setCellValue("worker Name");

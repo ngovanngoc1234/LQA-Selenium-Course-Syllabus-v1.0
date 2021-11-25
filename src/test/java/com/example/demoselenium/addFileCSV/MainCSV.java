@@ -55,6 +55,8 @@ public class MainCSV extends BaseTest implements Serializable {
 
     @Test
     public void Test() throws Exception {
+        TouchActions actions = new TouchActions(webDriver);
+
         WebDriverManager.chromedriver().setup();
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);

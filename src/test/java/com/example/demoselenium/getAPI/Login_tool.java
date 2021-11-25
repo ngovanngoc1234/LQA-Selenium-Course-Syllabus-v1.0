@@ -107,19 +107,6 @@ public class Login_tool implements Serializable {
         }
     }
 
-    @Test
-    public void api() throws UnirestException {
-        HttpResponse<String> response = Unirest.get("https://api-finfo.vndirect.com.vn/v4/stocks?q=type:IFC,ETF,STOCK~status:LISTED&fields=code,companyName,companyNameEng,shortName,floor,industryName&size=3000").asString();
-        String source = response.getBody();
-        JSONObject array = new JSONObject(source);
-        JSONArray array1 = array.getJSONArray("data");
-        for (int i = 0; i < array1.length(); i++) {
-            System.out.println(array1.getJSONObject(i).getString("code"));
-            System.out.println(array1.getJSONObject(i).getString("companyName"));
-            System.out.println(array1.getJSONObject(i).getString("floor"));
-            System.out.println(array1.getJSONObject(i).getString("companyNameEng"));
-        }
-    }
 
     @Test(priority = 3)
     public void GetURL() {
@@ -144,8 +131,6 @@ public class Login_tool implements Serializable {
             System.out.println("result" + resultApiUrl);
             SourceAndResult andResult = new SourceAndResult(sourceApiUrl, resultApiUrl);
             sourceAndResults.add(andResult);
-            sourceApiUrl = null;
-            resultApiUrl = null;
         }
     }
 
