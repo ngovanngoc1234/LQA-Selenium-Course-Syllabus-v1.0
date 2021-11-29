@@ -36,18 +36,4 @@ public class BaseTest implements Serializable {
             return false ;
         }
     }
-//    @BeforeMethod
-//    public void beforeMethod() {
-//        webDriver = new ChromeDriver();
-//        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-//        webDriver.manage().window().maximize();
-//        webDriver.get("http://automationpractice.com/index.php");
-//    }
-//
-//    //    @AfterMethod
-//    public void afterMethod() throws Exception {
-//        webDriver.close();
-//    }
-
-
 }

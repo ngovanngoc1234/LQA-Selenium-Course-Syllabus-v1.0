@@ -84,14 +84,14 @@ public class MainCSV extends BaseTest implements Serializable {
                 PopupHandle = h;
             }
         }
-       // Switch back to original browser (first window)
+        // Switch back to original browser (first window)
         webDriver.switchTo().window(PopupHandle);
 
 
         String startDate = "2021-05-21";
         String endDate = "2021-05-22";
         int result = 200;
-        int record = 451 ;
+        int record = 451;
 
 //        select Search period
         WebElement searchPeriodElt = webDriver.findElement(By.xpath("//*[@name=\"rangingField\"]"));

@@ -183,7 +183,7 @@
     <orderEntry type="library" name="Maven: org.apache.pdfbox:fontbox:2.0.22" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.rest-assured:json-schema-validator:4.2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.github.java-json-tools:json-schema-validator:2.2.10" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: com.github.java-json-tools:json-schema-core:1.2.10" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: com.github.java-json-tools:json-schema-core:1.2.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.github.java-json-tools:jackson-coreutils:1.9" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.github.fge:msg-simple:1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.github.fge:btf:1.2" level="project" />

@@ -111,8 +111,6 @@ public class Login_tool implements Serializable {
     @Test(priority = 3)
     public void GetURL() {
         RestAssured.baseURI = "https://coapi.crowdworks.kr";
-
-
         String sourceApiUrl = "";
         String resultApiUrl = "";
         for (ReadCSV readCSV : arrayListID) {
@@ -134,8 +132,6 @@ public class Login_tool implements Serializable {
         }
     }
 
-    int p = 0;
-
     @Test(priority = 4)
     public void Get_sourceApiUrl() throws UnirestException {
         Unirest.setTimeouts(0, 0);
@@ -146,8 +142,6 @@ public class Login_tool implements Serializable {
             String example = objectJson.getString("menu_name");
             System.out.println(example);
             arrayListID.get(i).setExample(example);
-            p++;
-            System.out.println(p);
         }
     }
 
